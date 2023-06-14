@@ -8,4 +8,16 @@ reloadOnUpdate("pages/background");
  */
 reloadOnUpdate("pages/content/style.scss");
 
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    if (request.msg === "no-buy") {
+        chrome.tabs.query({
+            currentWindow: true,
+            active: true
+        }, function (tabs) {
+            console.log(tabs)
+            chrome.tabs.remove(tabs[0].id);
+        });
+    }
+});
+
 console.log("background loaded");
