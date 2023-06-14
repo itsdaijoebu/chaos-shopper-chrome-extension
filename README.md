@@ -11,6 +11,8 @@ Have you ever spent hours agonizing over purchasing decisions while shopping onl
 
 Well, now you can leave those decisions up to the **Chaos Shopper**! When you're on a product page, you can ask it to make your shopping decisions and it'll either add it to your shopping cart or close the page. 
 
+Currently only works with Amazon.
+
 <!-- ## Table of Contents
 
 - [Intro](#intro)
