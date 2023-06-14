@@ -2,36 +2,38 @@ import { useEffect } from "react";
 
 export default function App() {
   useEffect(() => {
-    const chaosButton = document.createElement('div')
-    chaosButton.classList.add('a-button-stack')
+    let quantityButton = document.getElementById('quantityRelocate_feature_div')
 
-    const buttonSpan = document.createElement('span')
-    buttonSpan.classList.add('a-button', 'a-spacing-small', 'a-button-icon')
-    chaosButton.appendChild(buttonSpan)
+    if (quantityButton) {
+      const chaosButton = document.createElement('div')
+      chaosButton.classList.add('a-button-stack')
 
-    const buttonSpanInner = document.createElement('span')
-    buttonSpanInner.classList.add('a-button-inner')
+      const buttonSpan = document.createElement('span')
+      buttonSpan.classList.add('a-button', 'a-spacing-small', 'a-button-icon')
+      chaosButton.appendChild(buttonSpan)
 
-    buttonSpan.appendChild(buttonSpanInner)
+      const buttonSpanInner = document.createElement('span')
+      buttonSpanInner.classList.add('a-button-inner')
 
-    const chaosText = document.createElement('span')
-    chaosText.classList.add('a-button-text')
-    chaosText.innerText = 'Chaos Shopper!'
-    buttonSpanInner.appendChild(chaosText)
+      buttonSpan.appendChild(buttonSpanInner)
 
-    document.getElementById('quantityRelocate_feature_div').after(chaosButton)
+      const chaosText = document.createElement('span')
+      chaosText.classList.add('a-button-text')
+      chaosText.innerText = 'Chaos Shopper!'
+      buttonSpanInner.appendChild(chaosText)
+
+      quantityButton.after(chaosButton)
+      chaosButton.addEventListener('click', chaosShopper)
+    } 
     console.log("content view loaded");
-
-    chaosButton.addEventListener('click', chaosShopper)
   }, []);
 
 
   function chaosShopper() {
-    const addToCart = document.getElementById('add-to-cart-button')
     let rng = Math.random()
     console.log(rng)
     if (rng > 0.5) {
-      addToCart.click();
+      document.getElementById('add-to-cart-button').click();
     } else {
       closeTab();
     }
