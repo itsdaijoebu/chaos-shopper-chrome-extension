@@ -1,19 +1,17 @@
 <div align="center">
-<img src="public/icon-128.png" alt="logo"/>
-<h1> Chrome Extension Boilerplate with<br/>React + Vite + TypeScript</h1>
+<h1>Chaos Shopper</h1>
 
 ![](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
 ![](https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=typescript&logoColor=white)
 ![](https://badges.aleen42.com/src/vitejs.svg)
-![GitHub action badge](https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite/actions/workflows/build-zip.yml/badge.svg)
-<img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.com/Jonghakseo/chrome-extension-boilerplate-react-viteFactions&count_bg=%23#222222&title_bg=%23#454545&title=😀&edge_flat=true" alt="hits"/>
-
-
-> This project is listed in the [Awesome Vite](https://github.com/vitejs/awesome-vite)
 
 </div>
 
-## Table of Contents
+Have you ever spent hours agonizing over purchasing decisions while shopping online? Maybe you couldn't decide if your butt would look good in those shorts. Maybe it was a GPU that *might* go on sale in a few months, but you kind of want it *now*. Or maybe you just weren't sure whether that dress was chic or sh**. 
+
+Well, now you can leave those decisions up to the **Chaos Shopper**! When you're on a product page, you can ask it to make your shopping decisions and it'll either add it to your shopping cart or close the page. 
+
+<!-- ## Table of Contents
 
 - [Intro](#intro)
 - [Features](#features)
@@ -93,4 +91,4 @@ This boilerplate is made for creating chrome extensions using React and Typescri
 
 ---
 
-[Jonghakseo](https://nookpi.tistory.com/)
+[Jonghakseo](https://nookpi.tistory.com/) -->
