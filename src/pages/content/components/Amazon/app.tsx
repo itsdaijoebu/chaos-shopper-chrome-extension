@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+// import "@pages/content/style.scss";
 
 export default function App() {
   useEffect(() => {
@@ -9,7 +10,7 @@ export default function App() {
       chaosButton.classList.add('a-button-stack')
 
       const buttonSpan = document.createElement('span')
-      buttonSpan.classList.add('a-button', 'a-spacing-small', 'a-button-icon')
+      buttonSpan.classList.add('a-button', 'a-spacing-small', 'a-button-icon')  //place color class on this button
       chaosButton.appendChild(buttonSpan)
 
       const buttonSpanInner = document.createElement('span')

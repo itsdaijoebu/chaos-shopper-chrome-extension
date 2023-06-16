@@ -5,9 +5,9 @@ import "@pages/popup/Popup.css";
 const Popup = () => {
   return (
     <div className="App">
-      <header className="App-header">
+      <h1 className="App-header">
         Options
-      </header>
+      </h1>
     </div>
   );
 };
