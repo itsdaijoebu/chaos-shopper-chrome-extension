@@ -19,12 +19,15 @@ export default function App({ addToCartButton, domain }: ChaosShopperButton) {
     console.log("content view loaded");
   }, []);
 
-  function chaosShopper() {
+  // Either adds item to cart or closes window based on random chance
+  function chaosShopper(addToCartButton: HTMLElement) {
+    console.log('button', addToCartButton)
     let rng = Math.random()
-    console.log(rng)
     if (rng > 0.5) {
-      document.getElementById('add-to-cart-button').click();
+      console.log('add to cart')
+      addToCartButton.click();
     } else {
+      console.log('close')
       closeTab();
     }
   }
@@ -61,7 +64,9 @@ export default function App({ addToCartButton, domain }: ChaosShopperButton) {
       buttonSpanInner.appendChild(chaosText)
 
       addToCartButton.before(chaosButton)
-      chaosButton.addEventListener('click', chaosShopper)
+
+      let addToCartSubmit = addToCartButton.querySelector('#add-to-cart-button')
+      chaosButton.addEventListener('click', () => chaosShopper(addToCartSubmit))
     }
   }
 
