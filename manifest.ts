@@ -37,7 +37,8 @@ const manifest: chrome.runtime.ManifestV3 = {
       "matches": [ "*://*/*" ],
       "include_globs": [  
         "*://*.amazon.*/*",
-        // "*://*.alibaba.*/*",
+        "*://*.alibaba.*/*",
+        "*://*.shein.*/*",
       ],
       js: ["src/pages/content/index.js"],
       // KEY for cache invalidation

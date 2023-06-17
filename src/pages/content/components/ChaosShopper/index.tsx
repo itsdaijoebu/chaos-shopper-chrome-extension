@@ -13,7 +13,7 @@ const domain = hostname[1]
 console.log(hostname)
 
 // Define the target element you want to ob,serve
-let targetLocationId: string
+let addToCartSelector: string
 
 // if (domain === 'amazon') {
 //     const region = hostname[2]
@@ -21,27 +21,29 @@ let targetLocationId: string
 //     switch (region) {
 //         case 'com':
 //         case 'ca':
-//             targetLocationId = 'quantityRelocate_feature_div';
+//             addToCartSelector = 'quantityRelocate_feature_div';
 //             break;
 //     }
 // }
 switch (domain) {
     case 'amazon':
-        targetLocationId = 'quantityRelocate_feature_div';
+        addToCartSelector = '#addToCart_feature_div';
         break;
+    case 'shein':
+        addToCartSelector = '.she-btn-xl__container'
 }
 
-if (targetLocationId) {
+if (addToCartSelector) {
     // Create a MutationObserver instance
     const observer = new MutationObserver((mutationsList, observer) => {
         // Check if the targetLocation element exists in the DOM
-        const targetLocationElement = document.getElementById(targetLocationId);
+        const addToCartButton = document.querySelector(addToCartSelector);
         console.log('observing')
-        if (targetLocationElement) {
+        if (addToCartButton) {
             // Your logic to render the button
             document.body.append(root);
-            console.log('targetLocation', targetLocationId);
-            createRoot(root).render(<App targetLocationId={targetLocationId} />);
+            console.log('targetLocation', addToCartSelector);
+            createRoot(root).render(<App addToCartButton={addToCartButton} domain={domain} />);
             // Disconnect the observer since we no longer need it
             observer.disconnect();
         }
