@@ -20,7 +20,7 @@ export default function App({ addToCartButton, domain }: ChaosShopperButton) {
   }, []);
 
   // Either adds item to cart or closes window based on random chance
-  function chaosShopper(addToCartButton: HTMLElement) {
+  function chaosShopper(addToCartButton : HTMLElement) {
     console.log('button', addToCartButton)
     let rng = Math.random()
     if (rng > 0.5) {
@@ -43,7 +43,7 @@ export default function App({ addToCartButton, domain }: ChaosShopperButton) {
     );
   }
 
-  function renderAmazonChaosButton(addToCartButton) {
+  function renderAmazonChaosButton(addToCartButton: HTMLElement) {
     if (addToCartButton) {
       const chaosButton = document.createElement('div')
       chaosButton.classList.add('a-button-stack')
@@ -65,7 +65,7 @@ export default function App({ addToCartButton, domain }: ChaosShopperButton) {
 
       addToCartButton.before(chaosButton)
 
-      let addToCartSubmit = addToCartButton.querySelector('#add-to-cart-button')
+      let addToCartSubmit = addToCartButton.querySelector('#add-to-cart-button') as HTMLElement
       chaosButton.addEventListener('click', () => chaosShopper(addToCartSubmit))
     }
   }
@@ -74,11 +74,10 @@ export default function App({ addToCartButton, domain }: ChaosShopperButton) {
     const sheinCartSelector = ".she-btn-black"
     const observer = new MutationObserver((mutationsList, observer) => {
       // Check if the targetLocation element exists in the DOM
-      const cartInput = addToCartButton.querySelectorAll(sheinCartSelector);
-      console.log('observing')
-      if (cartInput.length > 1) {
+      const cartInputButton = addToCartButton.querySelectorAll(sheinCartSelector);
+      if (cartInputButton.length > 1) {
         // const locationButton = addToCartButton.querySelector('.product-intro__add-status')
-        console.log('cart button loaded', cartInput[1])
+        console.log('cart button loaded', cartInputButton[1])
         observer.disconnect();
 
         const chaosContainer = document.createElement('div')
@@ -107,9 +106,11 @@ export default function App({ addToCartButton, domain }: ChaosShopperButton) {
         chaosText.innerText = 'Chaos Shopper!'
         chaosButton.append(chaosText)
         
+        chaosButton.addEventListener('click', () => chaosShopper(cartInputButton[1] as HTMLElement))
+
         addToCartButton.before(chaosContainer)
-        // locationButton.before(chaosContainer)
-        console.log('button', chaosButton)
+
+
       }
     });
 
