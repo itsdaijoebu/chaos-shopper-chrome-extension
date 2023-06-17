@@ -3,6 +3,11 @@ import { useEffect } from "react";
 
 export default function App() {
   useEffect(() => {
+    renderChaosButton()
+    console.log("content view loaded");
+  }, []);
+
+  function renderChaosButton() {
     let quantityButton = document.getElementById('quantityRelocate_feature_div')
 
     if (quantityButton) {
@@ -26,9 +31,7 @@ export default function App() {
       quantityButton.after(chaosButton)
       chaosButton.addEventListener('click', chaosShopper)
     } 
-    console.log("content view loaded");
-  }, []);
-
+  }
 
   function chaosShopper() {
     let rng = Math.random()
