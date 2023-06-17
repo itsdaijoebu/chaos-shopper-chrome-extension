@@ -4,7 +4,12 @@
   font-size: 30px;
 }
 
+#chaos-shopper,
 .chaos-primary {
-  color: white;
-  background-color: blueviolet;
+  background: blueviolet;
+}
+
+.chaos-primary,
+.chaos-primary > span > span{
+  color: white !important;
 }

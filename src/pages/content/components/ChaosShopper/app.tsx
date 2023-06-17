@@ -1,21 +1,26 @@
 import { useEffect } from "react";
 // import "@pages/content/style.scss";
 
-export default function App() {
+type ChaosShopperButton = {
+  targetLocationId: string
+}
+
+export default function App({targetLocationId} : ChaosShopperButton) {
   useEffect(() => {
-    renderChaosButton()
+    renderChaosButton(targetLocationId)
     console.log("content view loaded");
   }, []);
 
-  function renderChaosButton() {
-    let quantityButton = document.getElementById('quantityRelocate_feature_div')
+  function renderChaosButton(targetLocationId) {
+    let targetLocation = document.getElementById(targetLocationId)
 
-    if (quantityButton) {
+    if (targetLocation) {
       const chaosButton = document.createElement('div')
       chaosButton.classList.add('a-button-stack')
 
       const buttonSpan = document.createElement('span')
-      buttonSpan.classList.add('a-button', 'a-spacing-small', 'a-button-icon')  //place color class on this button
+      buttonSpan.classList.add('a-button', 'a-spacing-small', 'a-button-icon', 'chaos-primary')  //place color class on this button
+      buttonSpan.id = "chaos-shopper"
       chaosButton.appendChild(buttonSpan)
 
       const buttonSpanInner = document.createElement('span')
@@ -28,7 +33,7 @@ export default function App() {
       chaosText.innerText = 'Chaos Shopper!'
       buttonSpanInner.appendChild(chaosText)
 
-      quantityButton.after(chaosButton)
+      targetLocation.after(chaosButton)
       chaosButton.addEventListener('click', chaosShopper)
     } 
   }

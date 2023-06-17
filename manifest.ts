@@ -20,14 +20,14 @@ const manifest: chrome.runtime.ManifestV3 = {
   // chrome_url_overrides: {
   //   newtab: "src/pages/newtab/index.html",
   // },
-  permissions: [
-    "tabs",
-    "activeTab"
-  ],
-  host_permissions: [
-    "http://*/*",
-    "https://*/*"
-  ],
+  // permissions: [
+  //   "tabs",
+  //   "activeTab"
+  // ],
+  // host_permissions: [
+  //   "http://*/*",
+  //   "https://*/*"
+  // ],
   icons: {
     "128": "icon-128.png",
   },
@@ -36,7 +36,8 @@ const manifest: chrome.runtime.ManifestV3 = {
       // matches: ["http://*/*", "https://* /*", "<all_urls>"],
       "matches": [ "*://*/*" ],
       "include_globs": [  
-        "*://*.amazon.*/*"
+        "*://*.amazon.*/*",
+        // "*://*.alibaba.*/*",
       ],
       js: ["src/pages/content/index.js"],
       // KEY for cache invalidation

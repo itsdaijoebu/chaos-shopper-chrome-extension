@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import App from "@src/pages/content/components/Amazon/app";
+import App from "@src/pages/content/components/ChaosShopper/app";
 
 describe("appTest", () => {
   test("render text", () => {
