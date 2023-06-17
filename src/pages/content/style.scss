@@ -6,7 +6,12 @@
 
 #chaos-shopper,
 .chaos-primary {
-  background: blueviolet;
+  background: rgb(129, 33, 219);
+}
+
+#chaos-shopper:hover,
+.chaos-primary:hover {
+  background: rgb(100, 16, 179);
 }
 
 .chaos-primary,
