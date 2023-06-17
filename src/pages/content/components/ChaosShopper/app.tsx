@@ -2,7 +2,7 @@ import { useEffect } from "react";
 // import "@pages/content/style.scss";
 
 type ChaosShopperButton = {
-  addToCartButton: Element,
+  addToCartButton: HTMLElement,
   domain: string
 }
 
@@ -70,11 +70,51 @@ export default function App({ addToCartButton, domain }: ChaosShopperButton) {
     }
   }
 
-  function renderSheinChaosButton(addToCartButton) {
-    let prependEl = document.getElementsByClassName("product-intro__add-btn")
-    console.log(prependEl)
+  function renderSheinChaosButton(addToCartButton: HTMLElement) {
+    const sheinCartSelector = ".she-btn-black"
+    const observer = new MutationObserver((mutationsList, observer) => {
+      // Check if the targetLocation element exists in the DOM
+      const cartInput = addToCartButton.querySelectorAll(sheinCartSelector);
+      console.log('observing')
+      if (cartInput.length > 1) {
+        // const locationButton = addToCartButton.querySelector('.product-intro__add-status')
+        console.log('cart button loaded', cartInput[1])
+        observer.disconnect();
 
-    // const button = document.createElement(')
+        const chaosContainer = document.createElement('div')
+        chaosContainer.classList.add('product-intro__add')
+
+        const chaosClearfix = document.createElement('div')
+        chaosClearfix.classList.add('she-clearfix', 'product-intro__add-wrap')
+        chaosContainer.append(chaosClearfix)
+
+        const chaosAddStatus = document.createElement('div')
+        chaosAddStatus.classList.add('product-intro__add-status')
+        chaosAddStatus.style.width = '100%';
+        chaosClearfix.append(chaosAddStatus)
+
+        const chaosAddButton = document.createElement('div')
+        chaosAddButton.classList.add('product-intro__add-btn')
+        chaosAddStatus.append(chaosAddButton)
+
+        const chaosButton = document.createElement('button')
+        chaosButton.classList.add('she-btn-xl', 'she-btn-black')
+        chaosButton.id = 'chaos-shopper'
+        chaosAddButton.append(chaosButton)
+        
+        const chaosText = document.createElement('div')
+        chaosText.classList.add('she-btn-xl__container')
+        chaosText.innerText = 'Chaos Shopper!'
+        chaosButton.append(chaosText)
+        
+        addToCartButton.before(chaosContainer)
+        // locationButton.before(chaosContainer)
+        console.log('button', chaosButton)
+      }
+    });
+
+    // Start observing mutations in the DOM
+    observer.observe(document, { childList: true, subtree: true });
   }
 
 

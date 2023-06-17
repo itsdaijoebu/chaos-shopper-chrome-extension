@@ -37,7 +37,7 @@ const manifest: chrome.runtime.ManifestV3 = {
       "matches": [ "*://*/*" ],
       "include_globs": [  
         "*://*.amazon.*/*",
-        "*://*.alibaba.*/*",
+        "*://*.wish.*/*",
         "*://*.shein.*/*",
       ],
       js: ["src/pages/content/index.js"],
