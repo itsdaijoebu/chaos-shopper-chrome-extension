@@ -54,9 +54,9 @@ export default function App({ addToCartButton, domain }: ChaosShopperButton) {
     console.log('button', addToCartButton)
     let rng = Math.random()
     console.log('rng', rng);
-    if (rng < 0.01 || !addToCartButton) { //sometimes addtocartbutton fails to be found. Just chalk it up to the universe not wanting you to buy this thing
+    if (rng < 0.25 || !addToCartButton) { //sometimes addtocartbutton fails to be found. Just chalk it up to the universe not wanting you to buy this thing
       console.log('close', addToCartButton)
-      // sendMessageToBg('close-tab');
+      sendMessageToBg('close-tab');
     } else {
       console.log('add to cart')
       addToCartButton.click();
@@ -65,6 +65,9 @@ export default function App({ addToCartButton, domain }: ChaosShopperButton) {
           case 'amazon':
             sendMessageToBg('close-on-navigation');
             setTimeout(() => sendMessageToBg('close-tab'), 2000)
+            break;
+          default:
+            setTimeout(() => sendMessageToBg('close-tab'), 1000)
             break;
         }
 
