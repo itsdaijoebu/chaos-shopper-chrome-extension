@@ -21,6 +21,10 @@ switch (domain) {
         break;
     case 'shein':
         addToCartSelector = '.product-intro__add'
+        break;
+    // case 'wish':
+    //     basicAppendToRoot();
+    //     break;
 }
 
 if (addToCartSelector) {
@@ -32,7 +36,6 @@ if (addToCartSelector) {
         if (addToCartButton) {
             // Your logic to render the button
             document.body.append(root);
-            console.log('targetLocation', addToCartSelector);
             createRoot(root).render(<App addToCartButton={addToCartButton} domain={domain} />);
             // Disconnect the observer since we no longer need it
             observer.disconnect();
@@ -41,4 +44,10 @@ if (addToCartSelector) {
 
     // Start observing mutations in the DOM
     observer.observe(document, { childList: true, subtree: true });
+}
+
+function basicAppendToRoot() {
+    // Your logic to render the button
+    document.body.append(root);
+    createRoot(root).render(<App domain={domain} />);
 }

@@ -2,11 +2,11 @@ import { useEffect } from "react";
 // import "@pages/content/style.scss";
 
 type ChaosShopperButton = {
-  addToCartButton: HTMLElement,
+  addToCartButton?: HTMLElement,
   domain: string
 }
 
-export default function App({ addToCartButton, domain }: ChaosShopperButton) {
+export default function App({ addToCartButton = undefined, domain }: ChaosShopperButton) {
   // const [closeOnCartAdd, setCloseOnCartAdd] = useState(false);
   let closeOnCartAdd = false;
 
@@ -42,6 +42,9 @@ export default function App({ addToCartButton, domain }: ChaosShopperButton) {
       case 'shein':
         renderSheinChaosButton(addToCartButton);
         break;
+      // case 'wish':
+      //   renderWishChaosButton();
+      //   break;
     }
   }, [])
 
@@ -70,7 +73,6 @@ export default function App({ addToCartButton, domain }: ChaosShopperButton) {
             setTimeout(() => sendMessageToBg('close-tab'), 1000)
             break;
         }
-
       }
     }
   }
@@ -88,8 +90,56 @@ export default function App({ addToCartButton, domain }: ChaosShopperButton) {
   }
 
   function renderAmazonChaosButton(addToCartButton: HTMLElement) {
+    // need to check for #twister_feature_div and if present, have a way to regen the chaos button if it's used
+    // current idea for regen: extract the creation of button into its own method, then call it within a mutation observer is twister div exists
+    // might need to check whether 
+    const checkTwister = () => {
+      console.log('check twister')
+      const twister = document.getElementById('twister')
+      if (twister) {
+        console.log('twister', twister)
+        let addToCartString = addToCartButton.id;
+        const rightCol = document.getElementById('rightCol')
+        const twistedObserver = new MutationObserver((mutations, observer) => {
+          mutations.forEach(mutation => {
+            Array.from(mutation.addedNodes).forEach(e => {
+              if (e.id && e.id === 'buybox') {
+                // const addToCartObserver = new MutationObserver((mutations, observer) => {
+                //   console.log('observe addtocart')
+                //   mutations.forEach(mutation => {
+                //     Array.from(mutation.addedNodes).forEach(e => {
+                //       console.log(e)
+                //       if(e.id) {
+                //         console.log(e.id)
+                //         // makeChaosButton();
+                //         // addToCartObserver.disconnect();
+                //       }
+                //     })
+                //   })
+                //   addToCartObserver.disconnect();
+                // })
+                // addToCartObserver.observe(e, {childList: true, subtree:true})
+                console.log(e)
+                addToCartButton = document.getElementById(addToCartString)
+                makeChaosButton();
+              }
+            })
+          })
+        })
+        // twistedObserver.observe(document, { childList: true, subtree: true });
+        twistedObserver.observe(rightCol, { childList: true, subtree: true });
+      }
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+      checkTwister();
+    })
+
     if (addToCartButton) {
       //creating the same structure as the site's add to cart button
+      makeChaosButton();
+    }
+
+    function makeChaosButton() {
       const chaosButton = document.createElement('div')
       chaosButton.classList.add('a-button-stack')
 
@@ -119,7 +169,7 @@ export default function App({ addToCartButton, domain }: ChaosShopperButton) {
     const sheinCartSelector = ".she-btn-black"
 
     //need to use a mutationobserver since shein adds their buttons programmatically, so need to wait for button to be created in the page
-    const observer = new MutationObserver((mutationsList, observer) => {
+    const observer = new MutationObserver((mutations, observer) => {
       // Check if the targetLocation element exists in the DOM
       const cartInputButton = addToCartButton.querySelectorAll(sheinCartSelector);
       if (cartInputButton.length > 1) {
@@ -145,7 +195,7 @@ export default function App({ addToCartButton, domain }: ChaosShopperButton) {
         chaosAddStatus.append(chaosAddButton)
 
         const chaosButton = document.createElement('button')
-        chaosButton.classList.add('she-btn-xl', 'she-btn-black')
+        chaosButton.classList.add('she-btn-xl', 'she-btn-black', 'chaos-shopper')
         chaosButton.id = 'chaos-shopper'
         chaosAddButton.append(chaosButton)
 
@@ -161,10 +211,39 @@ export default function App({ addToCartButton, domain }: ChaosShopperButton) {
         addToCartButton.before(chaosContainer)
       }
     });
-
     // Start observing mutations in the DOM
     observer.observe(document, { childList: true, subtree: true });
   }
+
+  // function renderWishChaosButton() {
+  //   let modalOpen = false;
+  //   const observer = new MutationObserver((mutations, observer) => {
+  //     // Check if the targetLocation element exists in the DOM
+  //     const addToCartButton = document.querySelector('[data-testid=add-to-cart]') as HTMLElement;
+  //     console.log('observing')
+  //     if (addToCartButton && !modalOpen) {
+  //       console.log('wish cart button', addToCartButton)
+  //       modalOpen = true;
+  //       const chaosButton = document.createElement('div');
+  //       chaosButton.classList.add('chaos-shopper', 'BuyButton__Button-uq0s5t-0 BuyButton__Buy-uq0s5t-1', 'gxVqNh', 'fAjCtG')
+  //       chaosButton.id = 'chaos-shopper'
+
+  //       chaosButton.innerText = 'Chaos Shopper!'
+  //       addToCartButton.after(chaosButton)
+
+  //       // Your logic to render the button
+  //       // Disconnect the observer since we no longer need it
+  //       // observer.disconnect();
+  //     } else if (!addToCartButton && modalOpen) {
+  //       modalOpen = false;
+  //       console.log('should set modal open false. is now:', modalOpen)
+  //     }
+  //   });
+  //   // Start observing mutations in the DOM
+  //   observer.observe(document, { childList: true, subtree: true });
+
+  //   console.log('wish')
+  // }
 
   return <div className="content-view">content view</div>;
 }
