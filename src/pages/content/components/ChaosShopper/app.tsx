@@ -3,10 +3,11 @@ import { useEffect } from "react";
 
 type ChaosShopperButton = {
   addToCartButton?: HTMLElement,
+  addToCartSelector?: string,
   domain: string
 }
 
-export default function App({ addToCartButton = undefined, domain }: ChaosShopperButton) {
+export default function App({ addToCartButton = undefined, addToCartSelector = undefined, domain }: ChaosShopperButton) {
   // const [closeOnCartAdd, setCloseOnCartAdd] = useState(false);
   let closeOnCartAdd = false;
 
@@ -90,41 +91,26 @@ export default function App({ addToCartButton = undefined, domain }: ChaosShoppe
   }
 
   function renderAmazonChaosButton(addToCartButton: HTMLElement) {
-    // need to check for #twister_feature_div and if present, have a way to regen the chaos button if it's used
-    // current idea for regen: extract the creation of button into its own method, then call it within a mutation observer is twister div exists
-    // might need to check whether 
+    // checks for the existance of the twister form, which allows for users to change the color, size, etc of their purchase without needing to reload the page
+    // however, it does reload the buybox, the sidebar containing the add to cart and chaos buttons, so if there is a twister form, then we need to make sure
+    // to recreate the chaos button whenever a twister selection reloads the buybox
     const checkTwister = () => {
       console.log('check twister')
       const twister = document.getElementById('twister')
       if (twister) {
         console.log('twister', twister)
-        let addToCartString = addToCartButton.id;
         const rightCol = document.getElementById('rightCol')
         const twistedObserver = new MutationObserver((mutations, observer) => {
-          mutations.forEach(mutation => {
-            Array.from(mutation.addedNodes).forEach(e => {
+          for(let mutation of mutations) {
+            for(let element of mutation.addedNodes) {
+              const e = element as HTMLElement
               if (e.id && e.id === 'buybox') {
-                // const addToCartObserver = new MutationObserver((mutations, observer) => {
-                //   console.log('observe addtocart')
-                //   mutations.forEach(mutation => {
-                //     Array.from(mutation.addedNodes).forEach(e => {
-                //       console.log(e)
-                //       if(e.id) {
-                //         console.log(e.id)
-                //         // makeChaosButton();
-                //         // addToCartObserver.disconnect();
-                //       }
-                //     })
-                //   })
-                //   addToCartObserver.disconnect();
-                // })
-                // addToCartObserver.observe(e, {childList: true, subtree:true})
-                console.log(e)
-                addToCartButton = document.getElementById(addToCartString)
+                addToCartButton = document.querySelector(addToCartSelector)
                 makeChaosButton();
+                return;
               }
-            })
-          })
+            }
+          }
         })
         // twistedObserver.observe(document, { childList: true, subtree: true });
         twistedObserver.observe(rightCol, { childList: true, subtree: true });

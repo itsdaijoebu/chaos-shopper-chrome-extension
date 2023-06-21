@@ -36,7 +36,7 @@ if (addToCartSelector) {
         if (addToCartButton) {
             // Your logic to render the button
             document.body.append(root);
-            createRoot(root).render(<App addToCartButton={addToCartButton} domain={domain} />);
+            createRoot(root).render(<App addToCartButton={addToCartButton} addToCartSelector={addToCartSelector} domain={domain} />);
             // Disconnect the observer since we no longer need it
             observer.disconnect();
         }
