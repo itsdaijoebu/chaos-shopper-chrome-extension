@@ -7,7 +7,7 @@ describe("appTest", () => {
     const text = "content view";
 
     // when
-    render(<App />);
+    render(<App domain={'amazon'} />);
 
     // then
     screen.getByText(text);

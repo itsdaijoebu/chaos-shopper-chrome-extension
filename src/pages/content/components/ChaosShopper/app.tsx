@@ -1,3 +1,5 @@
+// todo: ensure that if "close on add to cart" is on, the page doesn't close if the item wasn't added due to a size/color/etc option wasn't selected
+
 import { useEffect } from "react";
 // import "@pages/content/style.scss";
 
@@ -10,14 +12,17 @@ type ChaosShopperButton = {
 export default function App({ addToCartButton = undefined, addToCartSelector = undefined, domain }: ChaosShopperButton) {
   // const [closeOnCartAdd, setCloseOnCartAdd] = useState(false);
   let closeOnCartAdd = false;
+  let useAnimations = false;
 
   // keep track of extension option changes and set them on mount
   useEffect(() => {
     const optionsListener = () => {
-      chrome.storage.sync.get(['closeOnCartAdd'], result => {
+      chrome.storage.sync.get(['closeOnCartAdd', 'useAnimations'], result => {
         // setCloseOnCartAdd(result.closeOnCartAdd)
         closeOnCartAdd = result.closeOnCartAdd;
+        useAnimations = result.useAnimations;
         console.log('close on cart add listener', result.closeOnCartAdd)
+        console.log('use animations listener', result.useAnimations)
       })
     }
 
@@ -90,6 +95,10 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
     );
   }
 
+  function chaosAnimationSVG() {
+    
+  }
+
   function renderAmazonChaosButton(addToCartButton: HTMLElement) {
     // checks for the existance of the twister form, which allows for users to change the color, size, etc of their purchase without needing to reload the page
     // however, it does reload the buybox, the sidebar containing the add to cart and chaos buttons, so if there is a twister form, then we need to make sure
@@ -112,10 +121,10 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
             }
           }
         })
-        // twistedObserver.observe(document, { childList: true, subtree: true });
         twistedObserver.observe(rightCol, { childList: true, subtree: true });
       }
     }
+    // twister is loaded after the add to cart button, so need to check it at a different timing
     window.addEventListener('DOMContentLoaded', () => {
       checkTwister();
     })
