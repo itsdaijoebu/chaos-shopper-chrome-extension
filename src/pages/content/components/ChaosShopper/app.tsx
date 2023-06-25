@@ -1,7 +1,9 @@
 // todo: ensure that if "close on add to cart" is on, the page doesn't close if the item wasn't added due to a size/color/etc option wasn't selected
 
+import { features } from "process";
 import { useEffect } from "react";
 // import "@pages/content/style.scss";
+import { gsap } from 'gsap';
 
 type ChaosShopperButton = {
   addToCartButton?: HTMLElement,
@@ -21,8 +23,6 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
         // setCloseOnCartAdd(result.closeOnCartAdd)
         closeOnCartAdd = result.closeOnCartAdd;
         useAnimations = result.useAnimations;
-        console.log('close on cart add listener', result.closeOnCartAdd)
-        console.log('use animations listener', result.useAnimations)
       })
     }
 
@@ -35,7 +35,6 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
     return () => {
       chrome.storage.onChanged.removeListener(optionsListener)
     }
-    console.log("content view loaded");
   }, []);
 
 
@@ -60,7 +59,6 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
 
   // Either adds item to cart or closes window based on random chance
   function chaosShopper(addToCartButton: HTMLElement) {
-    console.log('button', addToCartButton)
     let rng = Math.random()
     console.log('rng', rng);
     if (rng < 0.25 || !addToCartButton) { //sometimes addtocartbutton fails to be found. Just chalk it up to the universe not wanting you to buy this thing
@@ -96,7 +94,52 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
   }
 
   function chaosAnimationSVG() {
-    
+    const svgNS = 'http://www.w3.org/2000/svg'
+
+    const chaosSvg = document.createElementNS(svgNS, 'svg');
+    chaosSvg.classList.add("svg-filter")
+
+    const defs = document.createElement('defs')
+    chaosSvg.appendChild(defs)
+
+    const filter = document.createElementNS(svgNS, 'filter')
+    filter.id = 'filter'
+    defs.appendChild(filter)
+
+    const feTurbulence = document.createElementNS(svgNS, 'feTurbulence')
+    feTurbulence.setAttributeNS(null, 'type', 'fractalNoise')
+    feTurbulence.setAttributeNS(null, 'baseFrequency', '0.00001 0.00001')
+    feTurbulence.setAttributeNS(null, 'numOctaves', '1')
+    feTurbulence.setAttributeNS(null, 'result', 'warp')
+    filter.appendChild(feTurbulence)
+
+    const feDisplacement = document.createElementNS(svgNS, 'feDisplacementMap')
+    feDisplacement.setAttributeNS(null, 'xChannelSelector', 'R')
+    feDisplacement.setAttributeNS(null, 'yChannelSelector', 'G')
+    feDisplacement.setAttributeNS(null, 'scale', '30')
+    feDisplacement.setAttributeNS(null, 'in', 'SourceGraphic')
+    feDisplacement.setAttributeNS(null, 'in2', 'warpOffset')
+    filter.appendChild(feDisplacement)
+    return chaosSvg
+  }
+
+  function addChaosAnimation(bt: HTMLElement) {
+    let chaosSVG = chaosAnimationSVG();
+    bt.append(chaosSVG)
+
+    let turbVal = { val: 0.000001 };
+    const turb = chaosSVG.querySelector('feTurbulence');
+    let btTl = gsap.timeline({
+      paused: true,
+      onUpdate: () => {
+        turb.setAttributeNS(null, 'baseFrequency', '0' + turbVal.val)
+      }
+    })
+    btTl.to(turbVal, 0.2, { val: 0.3 });
+    btTl.to(turbVal, 0.2, { val: 0.000001 });
+    bt.addEventListener('mouseenter', function() {
+      btTl.restart();
+      });
   }
 
   function renderAmazonChaosButton(addToCartButton: HTMLElement) {
@@ -104,14 +147,12 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
     // however, it does reload the buybox, the sidebar containing the add to cart and chaos buttons, so if there is a twister form, then we need to make sure
     // to recreate the chaos button whenever a twister selection reloads the buybox
     const checkTwister = () => {
-      console.log('check twister')
       const twister = document.getElementById('twister')
       if (twister) {
-        console.log('twister', twister)
         const rightCol = document.getElementById('rightCol')
         const twistedObserver = new MutationObserver((mutations, observer) => {
-          for(let mutation of mutations) {
-            for(let element of mutation.addedNodes) {
+          for (let mutation of mutations) {
+            for (let element of mutation.addedNodes) {
               const e = element as HTMLElement
               if (e.id && e.id === 'buybox') {
                 addToCartButton = document.querySelector(addToCartSelector)
@@ -155,8 +196,9 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
 
       addToCartButton.before(chaosButton)
 
-      let addToCartSubmit = addToCartButton.querySelector('#add-to-cart-button') as HTMLElement
+      const addToCartSubmit = addToCartButton.querySelector('#add-to-cart-button') as HTMLElement
       chaosButton.addEventListener('click', () => chaosShopper(addToCartSubmit))
+      addChaosAnimation(chaosButton);
     }
   }
 
@@ -169,7 +211,6 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
       const cartInputButton = addToCartButton.querySelectorAll(sheinCartSelector);
       if (cartInputButton.length > 1) {
         // const locationButton = addToCartButton.querySelector('.product-intro__add-status')
-        console.log('cart button loaded', cartInputButton[1])
         observer.disconnect();
 
         //creating the same structure as the site's add to cart button
@@ -202,6 +243,7 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
         // Shein's site doesn't have ids on their elements, so have to get by class, and the add to cart button is the second button on the page with chosen selector
         // They also have a one click buy button with all the same classes as the ATC button, so have to grab it too
         chaosButton.addEventListener('click', () => chaosShopper(cartInputButton[1] as HTMLElement))
+        addChaosAnimation(chaosButton);
 
         addToCartButton.before(chaosContainer)
       }

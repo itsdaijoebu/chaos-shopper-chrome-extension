@@ -7,6 +7,9 @@
 #chaos-shopper,
 .chaos-primary {
   background: rgb(129, 33, 219);
+  // Transition: background-color 0.1s ease-out;
+  -webkit-filter: url("#filter");
+  filter: url('#filter')
 }
 
 #chaos-shopper:hover,
@@ -17,4 +20,11 @@
 .chaos-primary,
 .chaos-primary > span > span{
   color: white !important;
+}
+
+.svg-filter {
+    position: absolute;
+    visibility: hidden;
+    width: 1px;
+    height: 1px;
 }
