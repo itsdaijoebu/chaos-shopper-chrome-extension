@@ -137,9 +137,14 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
     })
     btTl.to(turbVal, 0.2, { val: 0.3 });
     btTl.to(turbVal, 0.2, { val: 0.000001 });
-    bt.addEventListener('mouseenter', function() {
-      btTl.restart();
-      });
+    bt.addEventListener('mouseenter', () => {
+      if (useAnimations)
+        btTl.restart();
+    });
+    bt.addEventListener('click', () => {
+      if(useAnimations)
+        btTl.restart();
+    })
   }
 
   function renderAmazonChaosButton(addToCartButton: HTMLElement) {

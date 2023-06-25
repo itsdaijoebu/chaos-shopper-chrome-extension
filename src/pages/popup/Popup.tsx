@@ -4,16 +4,13 @@ import "@pages/popup/Popup.scss";
 
 export default function Popup() {
   const [closeOnCartAdd, setCloseOnCartAdd] = useState(false)
-  const [useAnimations, setUseAnimations] = useState(false)
+  const [useAnimations, setUseAnimations] = useState(true)
 
   useEffect(() => {
     chrome.storage.sync.get(['closeOnCartAdd', 'useAnimations'], (result) => {
       if(result.closeOnCartAdd !== undefined) setCloseOnCartAdd(result.closeOnCartAdd)
       if(result.useAnimations !== undefined) setUseAnimations(result.useAnimations)
     })
-    // chrome.storage.sync.get(['useAnimations'], (result) => {
-    //   if(result.useAnimations !== undefined) setUseAnimations(result.useAnimations)
-    // })
   }, [])
 
   useEffect(() => {
