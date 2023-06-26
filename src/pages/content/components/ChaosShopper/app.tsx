@@ -15,14 +15,16 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
   // const [closeOnCartAdd, setCloseOnCartAdd] = useState(false);
   let closeOnCartAdd = false;
   let useAnimations = false;
+  let buyPercent = 0.75;
 
   // keep track of extension option changes and set them on mount
   useEffect(() => {
     const optionsListener = () => {
-      chrome.storage.sync.get(['closeOnCartAdd', 'useAnimations'], result => {
+      chrome.storage.sync.get(['closeOnCartAdd', 'useAnimations', 'buyPercent'], result => {
         // setCloseOnCartAdd(result.closeOnCartAdd)
         closeOnCartAdd = result.closeOnCartAdd;
         useAnimations = result.useAnimations;
+        buyPercent = result.buyPercent;
       })
     }
 
@@ -59,25 +61,25 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
 
   // Either adds item to cart or closes window based on random chance
   function chaosShopper(addToCartButton: HTMLElement) {
-    let rng = Math.random()
+    let rng = Math.random()*100
     console.log('rng', rng);
-    if (rng < 0.25 || !addToCartButton) { //sometimes addtocartbutton fails to be found. Just chalk it up to the universe not wanting you to buy this thing
+    if (rng > buyPercent || !addToCartButton) { //sometimes addtocartbutton fails to be found. Just chalk it up to the universe not wanting you to buy this thing
       console.log('close', addToCartButton)
-      sendMessageToBg('close-tab');
+      // sendMessageToBg('close-tab');
     } else {
       console.log('add to cart')
-      addToCartButton.click();
-      if (closeOnCartAdd) {
-        switch (domain) {
-          case 'amazon':
-            sendMessageToBg('close-on-navigation');
-            setTimeout(() => sendMessageToBg('close-tab'), 2000)
-            break;
-          default:
-            setTimeout(() => sendMessageToBg('close-tab'), 1000)
-            break;
-        }
-      }
+      // addToCartButton.click();
+      // if (closeOnCartAdd) {
+      //   switch (domain) {
+      //     case 'amazon':
+      //       sendMessageToBg('close-on-navigation');
+      //       setTimeout(() => sendMessageToBg('close-tab'), 2000)
+      //       break;
+      //     default:
+      //       setTimeout(() => sendMessageToBg('close-tab'), 1000)
+      //       break;
+      //   }
+      // }
     }
   }
 

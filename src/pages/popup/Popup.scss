@@ -16,3 +16,14 @@
   flex-direction: column;
   font-size: calc(10px + 2vmin);
 }
+
+.buy-percent-input {
+  width: 2.5em;
+  background: white;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
