@@ -227,7 +227,7 @@ var manifest = {
   },
   action: {
     default_popup: "src/pages/popup/index.html",
-    default_icon: "icon-34.png"
+    default_icon: "icon-38.png"
   },
   icons: {
     "128": "icon-128.png"
