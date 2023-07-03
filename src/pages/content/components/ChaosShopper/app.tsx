@@ -187,7 +187,7 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
       chaosButton.classList.add('a-button-stack')
 
       const buttonSpan = document.createElement('span')
-      buttonSpan.classList.add('a-button', 'a-spacing-small', 'a-button-icon', 'chaos-primary')
+      buttonSpan.classList.add('a-button', 'a-spacing-small', 'a-button-icon', 'chaos-primary', 'filtered')
       buttonSpan.id = "chaos-shopper"
       chaosButton.appendChild(buttonSpan)
 
@@ -238,7 +238,7 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
         chaosAddStatus.append(chaosAddButton)
 
         const chaosButton = document.createElement('button')
-        chaosButton.classList.add('she-btn-xl', 'she-btn-black', 'chaos-shopper')
+        chaosButton.classList.add('she-btn-xl', 'she-btn-black', 'chaos-primary', 'filtered')
         chaosButton.id = 'chaos-shopper'
         chaosAddButton.append(chaosButton)
 

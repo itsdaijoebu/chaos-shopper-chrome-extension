@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import logo from "@assets/img/logo.svg";
+import logo from "@assets/img/logo.png";
 import "@pages/popup/Popup.scss";
 
 export default function Popup() {
@@ -33,24 +33,23 @@ export default function Popup() {
   }
   function handleBuyPercent(e: React.ChangeEvent<HTMLInputElement>) {
     let value = Number(e.target.value);
-    if(value > 100) value = 100;
-    else if(value < 0) value = 0;
+    if (value > 100) value = 100;
+    else if (value < 0) value = 0;
     setBuyPercent(value)
   }
 
   return (
     <div className="App">
+      <img src={logo} alt="logo" width='48' height="48" />
       <h1 className="App-header">
         Options
       </h1>
 
-      <div>
-        <input type="range" min='0' max='100' value={buyPercent} onChange={handleBuyPercent}/>
-      </div>
+      <label htmlFor="buy-percent">Percentage chance to buy:</label>
 
       <div>
-        <label htmlFor="buy-percent">Percentage chance to buy:</label>
-        <input type='percent' name="buy-percent" id="buy-percent-input" className="buy-percent-input" min='0' max='100' value={`${buyPercent}%`} onChange={handleBuyPercent}/>
+        <input type="range" min='0' max='100' value={buyPercent} onChange={handleBuyPercent} />
+        <input type='percent' name="buy-percent" id="buy-percent-input" className="buy-percent-input" min='0' max='100' value={`${buyPercent}%`} onChange={handleBuyPercent} />
       </div>
 
       <div>

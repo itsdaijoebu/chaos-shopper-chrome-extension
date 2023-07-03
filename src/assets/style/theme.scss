@@ -1,3 +1,12 @@
+$chaos-primary: rgb(129, 33, 219);
+$chaos-secondary: rgb(100, 16, 179);
+
 .crx-class {
   color: pink;
+}
+
+#chaos-shopper,
+.chaos-primary {
+  background: $chaos-primary;
+  color: white; 
 }

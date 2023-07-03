@@ -4,20 +4,18 @@
   font-size: 30px;
 }
 
-#chaos-shopper,
-.chaos-primary {
-  background: rgb(129, 33, 219);
-  // Transition: background-color 0.1s ease-out;
+#chaos-shopper.filtered,
+.chaos-primary.filtered {
   -webkit-filter: url("#filter");
   filter: url('#filter')
 }
 
 #chaos-shopper:hover,
 .chaos-primary:hover {
-  background: rgb(100, 16, 179);
+  background: $chaos-secondary;
 }
 
-.chaos-primary,
+// .chaos-primary,
 .chaos-primary > span > span{
   color: white !important;
 }
