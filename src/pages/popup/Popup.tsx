@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import logo from "@assets/img/logo.png";
 import "@pages/popup/Popup.scss";
+import "@pages/.components/options-toggle/OptionsToggle"
+import OptionsToggle from "@pages/.components/options-toggle/OptionsToggle";
 
 export default function Popup() {
   const [closeOnCartAdd, setCloseOnCartAdd] = useState(false)
@@ -46,20 +48,13 @@ export default function Popup() {
       </h1>
 
       <label htmlFor="buy-percent">Percentage chance to buy:</label>
-
       <div>
         <input type="range" min='0' max='100' value={buyPercent} onChange={handleBuyPercent} />
         <input type='percent' name="buy-percent" id="buy-percent-input" className="buy-percent-input" min='0' max='100' value={`${buyPercent}%`} onChange={handleBuyPercent} />
       </div>
 
-      <div>
-        <label htmlFor="close-on-cart-add">Close tab if item added to cart?</label>
-        <input type="checkbox" name="close-on-cart-add" id="close-on-cart-add-checkbox" checked={closeOnCartAdd} onChange={handleCloseOnCartAdd} />
-      </div>
-      <div>
-        <label htmlFor="use-animations">Use animations?</label>
-        <input type="checkbox" name="use-animations" id="use-animations-checkbox" checked={useAnimations} onChange={handleUseAnimations} />
-      </div>
+      <OptionsToggle name="close-on-cart-add" text="Close tab if item added to cart?" checked={closeOnCartAdd} onChange={handleCloseOnCartAdd}/>
+      <OptionsToggle name="use-animation" text="Use animations?" checked={useAnimations} onChange={handleUseAnimations}/>
     </div>
   );
 };

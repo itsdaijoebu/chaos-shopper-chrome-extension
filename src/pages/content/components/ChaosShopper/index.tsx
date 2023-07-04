@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import App from "@src/pages/content/components/ChaosShopper/app";
+import App from "@pages/content/components/ChaosShopper/app";
 import refreshOnUpdate from "virtual:reload-on-update-in-view";
 
 refreshOnUpdate("pages/content");
