@@ -55,31 +55,27 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
     }
   }, [])
 
-  // useEffect(() => {
-  //   console.log('close on cart add useeffect', closeOnCartAdd)
-  // }, [closeOnCartAdd])
-
   // Either adds item to cart or closes window based on random chance
   function chaosShopper(addToCartButton: HTMLElement) {
     let rng = Math.random()*100
     console.log('rng', rng);
     if (rng > buyPercent || !addToCartButton) { //sometimes addtocartbutton fails to be found. Just chalk it up to the universe not wanting you to buy this thing
       console.log('close', addToCartButton)
-      // sendMessageToBg('close-tab');
+      sendMessageToBg('close-tab');
     } else {
       console.log('add to cart')
-      // addToCartButton.click();
-      // if (closeOnCartAdd) {
-      //   switch (domain) {
-      //     case 'amazon':
-      //       sendMessageToBg('close-on-navigation');
-      //       setTimeout(() => sendMessageToBg('close-tab'), 2000)
-      //       break;
-      //     default:
-      //       setTimeout(() => sendMessageToBg('close-tab'), 1000)
-      //       break;
-      //   }
-      // }
+      addToCartButton.click();
+      if (closeOnCartAdd) {
+        switch (domain) {
+          case 'amazon':
+            sendMessageToBg('close-on-navigation');
+            setTimeout(() => sendMessageToBg('close-tab'), 2000)
+            break;
+          default:
+            setTimeout(() => sendMessageToBg('close-tab'), 1000)
+            break;
+        }
+      }
     }
   }
 
