@@ -1,50 +1,100 @@
-.toggle {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
+@import '@assets/style/theme.scss';
+$toggle-indicator-size: 1.5em; // changing this number will resize the whole toggle
+$track-height: $toggle-indicator-size * 1.2;
+$track-width: $toggle-indicator-size * 2.5;
+$highContrastModeSupport: solid 2px transparent;
+$speed: 0.25s;
 
-    input {
-        opacity: 0;
-        width: 0;
-        height: 0;
+$track-border: #5a72b5;
+$track-background: #121943;
+$focus-ring: 0px 0px 0px 2px $chaos-primary;
+
+// Toggle specific styles
+.toggle {
+    align-items: center;
+    border-radius: 100px;
+    display: flex;
+    font-weight: 700;
+    margin-bottom: 16px;
+
+    &:last-of-type {
+        margin: 0;
     }
 }
 
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+// Since we can't style the checkbox directly, we "hide" it so we can draw the toggle.
+.toggle__input {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+
+    // This style sets the focus ring. The ":not([disabled])" prevents the focus ring from creating a flash when the element is clicked.
+    &:not([disabled]):active+.toggle-track,
+    &:not([disabled]):focus+.toggle-track {
+        border: 1px solid transparent;
+        box-shadow: $focus-ring;
+    }
+
+    &:disabled+.toggle-track {
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
 }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+.toggle-track {
+    background: $track-background;
+    border: 1px solid $track-border;
+    border-radius: 100px;
+    cursor: pointer;
+    display: flex;
+    height: $track-height;
+    margin-right: 12px;
+    position: relative;
+    width: $track-width;
 }
 
-input:checked + .slider {
-  background-color: #2196F3;
+.toggle-indicator {
+    align-items: center;
+    background: $white;
+    border-radius: $toggle-indicator-size;
+    bottom: 2px;
+    display: flex;
+    height: $toggle-indicator-size;
+    justify-content: center;
+    left: 2px;
+    outline: $highContrastModeSupport;
+    position: absolute;
+    transition: $speed;
+    width: $toggle-indicator-size;
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+// The check mark is optional
+.checkMark {
+    fill: $chaos-primary;
+    height: $toggle-indicator-size;
+    width: $toggle-indicator-size;
+    opacity: 0;
+    transition: opacity $speed ease-in-out;
 }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+.toggle__input:checked+.toggle-track {
+    background: $chaos-hover;
+    .toggle-indicator {
+        transform: translateX($track-width - $track-height);
+
+        .checkMark {
+            opacity: 1;
+            transition: opacity $speed ease-in-out;
+        }
+    }
+}
+
+@media screen and (-ms-high-contrast: active) {
+    .toggle-track {
+        border-radius: 0;
+    }
 }
