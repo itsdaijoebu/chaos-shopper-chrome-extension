@@ -61,7 +61,7 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
     console.log('rng', rng);
     if (rng > buyPercent || !addToCartButton) { //sometimes addtocartbutton fails to be found. Just chalk it up to the universe not wanting you to buy this thing
       console.log('close', addToCartButton)
-      sendMessageToBg('close-tab');
+      setTimeout(() => sendMessageToBg('close-tab'), 1000);
     } else {
       console.log('add to cart')
       addToCartButton.click();

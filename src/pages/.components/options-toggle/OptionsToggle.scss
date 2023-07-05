@@ -1,13 +1,13 @@
 @import '@assets/style/theme.scss';
+
 $toggle-indicator-size: 1.5em; // changing this number will resize the whole toggle
 $track-height: $toggle-indicator-size * 1.2;
 $track-width: $toggle-indicator-size * 2.5;
 $highContrastModeSupport: solid 2px transparent;
 $speed: 0.25s;
 
-$track-border: #5a72b5;
-$track-background: #121943;
-$focus-ring: 0px 0px 0px 2px $chaos-primary;
+$track-border: $chaos-hover;
+$track-background: $dark-accent;
 
 // Toggle specific styles
 .toggle {
@@ -32,22 +32,15 @@ $focus-ring: 0px 0px 0px 2px $chaos-primary;
     white-space: nowrap;
     width: 1px;
 
-    // This style sets the focus ring. The ":not([disabled])" prevents the focus ring from creating a flash when the element is clicked.
-    &:not([disabled]):active+.toggle-track,
-    &:not([disabled]):focus+.toggle-track {
+    &:focus-visible+.toggle-track {
         border: 1px solid transparent;
         box-shadow: $focus-ring;
-    }
-
-    &:disabled+.toggle-track {
-        cursor: not-allowed;
-        opacity: 0.7;
     }
 }
 
 .toggle-track {
     background: $track-background;
-    border: 1px solid $track-border;
+    border: 2px solid $track-border;
     border-radius: 100px;
     cursor: pointer;
     display: flex;
@@ -72,7 +65,6 @@ $focus-ring: 0px 0px 0px 2px $chaos-primary;
     width: $toggle-indicator-size;
 }
 
-// The check mark is optional
 .checkMark {
     fill: $chaos-primary;
     height: $toggle-indicator-size;
@@ -83,6 +75,7 @@ $focus-ring: 0px 0px 0px 2px $chaos-primary;
 
 .toggle__input:checked+.toggle-track {
     background: $chaos-hover;
+
     .toggle-indicator {
         transform: translateX($track-width - $track-height);
 

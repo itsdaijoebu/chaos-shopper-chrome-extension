@@ -33,28 +33,34 @@ export default function Popup() {
   function handleUseAnimations(e: React.ChangeEvent<HTMLInputElement>) {
     setUseAnimations(e.target.checked)
   }
-  function handleBuyPercent(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleBuyPercentInput(e: React.ChangeEvent<HTMLInputElement>) {
     let value = Number(e.target.value);
     if (value > 100) value = 100;
     else if (value < 0) value = 0;
     setBuyPercent(value)
   }
+  function handleBuyPercentRange(e: React.ChangeEvent<HTMLInputElement>) {
+    setBuyPercent(Number(e.target.value));
+  }
 
   return (
     <div className="App">
-      <img src={logo} alt="logo" width='48' height="48" />
-      <h1 className="App-header">
-        Options
-      </h1>
+      <header className="app-header">
+        <img src={logo} alt="logo" className="center" width='48' height="48" />
+        <h1>
+          Options
+        </h1>
+      </header>
 
       <label htmlFor="buy-percent">Percentage chance to buy:</label>
-      <div>
-        <input type="range" min='0' max='100' value={buyPercent} onChange={handleBuyPercent} />
-        <input type='percent' name="buy-percent" id="buy-percent-input" className="buy-percent-input" min='0' max='100' value={`${buyPercent}%`} onChange={handleBuyPercent} />
+      <div className="buy-percent-input-container">
+        <input type='percent' name="buy-percent" id="buy-percent-input" className="buy-percent-input" min='0' max='100' value={buyPercent} onChange={handleBuyPercentInput} />
+        <span>%</span>
+        <input type="range" className="options-range" min='0' max='100' value={buyPercent} onChange={handleBuyPercentRange} />
       </div>
 
-      <OptionsToggle name="close-on-cart-add" text="Close tab if item added to cart?" checked={closeOnCartAdd} onChange={handleCloseOnCartAdd}/>
-      <OptionsToggle name="use-animation" text="Use animations?" checked={useAnimations} onChange={handleUseAnimations}/>
+      <OptionsToggle name="close-on-cart-add" text="Close tab if item added to cart?" checked={closeOnCartAdd} onChange={handleCloseOnCartAdd} />
+      <OptionsToggle name="use-animation" text="Use animations?" checked={useAnimations} onChange={handleUseAnimations} />
     </div>
   );
 };

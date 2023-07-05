@@ -1,29 +1,72 @@
+@import '@assets/style/theme.scss';
+
 .App {
   position: absolute;
   top: 0px;
   bottom: 0px;
   left: 0px;
   right: 0px;
-  text-align: center;
-  height: 100%;
-  padding: 10px;
-  background-color: #282c34;
+  font-weight: 700;
+  // height: 100%;
+  height: fit-content;
+  padding: 3em 1.5em;
+  background-color: $dark;
   color: white;
 }
 
-.App-header {
+.app-header {
   display: flex;
   flex-direction: column;
   font-size: calc(10px + 2vmin);
+  align-items: center;
+  margin-bottom: 1em;
+
+  h1 {
+    margin: 0;
+  }
+}
+
+input {
+
+  &:focus-visible {
+    outline: solid 2px $chaos-hover;
+  }
 }
 
 .buy-percent-input {
-  width: 2.5em;
-  background: white;
+  width: 1.75em;
+  background: $dark-accent;
+  color: $white;
+  text-align: end;
+  margin-bottom: 1em;
+  // border-radius: 3px;
+
+  border-radius: 3px;
+  // border: 1px solid transparent;
+  // border-top: none;
+  // border-bottom: 1px solid $chaos-primary;
+  // box-shadow: inset 0 1px 2px rgba(0,0,0,.39), 0 -1px 1px $chaos-primary, 0 1px 0 $chaos-primary;
+  border-right: solid 1px $chaos-hover;
+  border-bottom: solid 1px $chaos-hover;
+  box-shadow: inset 0 0 2px $chaos-hover;
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
+
+  +span {
+    margin-right: 0.1em;
+  }
+}
+
+.options-range {
+  width: 65vw;
+  height: 0.5em;
+  accent-color: $chaos-primary;
+}
+
+.buy-percent-input-container {
+  margin-top: 0.5em;
 }
