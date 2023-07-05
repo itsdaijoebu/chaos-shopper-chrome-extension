@@ -1,5 +1,5 @@
 import React from "react";
-import "@pages/options/Options.css"
+import "@pages/.components/options-toggle/OptionsToggle.scss"
 
 type OptionsToggleType = {
     name: string,
@@ -16,8 +16,11 @@ export default function OptionsToggle(props: OptionsToggleType) {
 
     return (
         <div>
-            <input type="checkbox" name={name} id={`${name}-checkbox`} checked={checked} onChange={onChange}/>
-            <label htmlFor={name}>{text}</label>
+            <label className="toggle">
+                <input type="checkbox" name={name} id={`${name}-checkbox`} checked={checked} onChange={onChange} />
+                <span className="slider">test</span>
+                <label htmlFor={name}>{text}</label>
+            </label>
         </div>
     )
 }

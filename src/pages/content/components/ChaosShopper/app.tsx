@@ -129,12 +129,13 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
     const turb = chaosSVG.querySelector('feTurbulence');
     let btTl = gsap.timeline({
       paused: true,
+      duration: 0.2,
       onUpdate: () => {
         turb.setAttributeNS(null, 'baseFrequency', '0' + turbVal.val)
       }
     })
-    btTl.to(turbVal, 0.2, { val: 0.3 });
-    btTl.to(turbVal, 0.2, { val: 0.000001 });
+    btTl.to(turbVal, { val: 0.3 });
+    btTl.to(turbVal, { val: 0.000001 });
     bt.addEventListener('mouseenter', () => {
       if (useAnimations)
         btTl.restart();
