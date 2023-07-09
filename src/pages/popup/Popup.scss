@@ -9,20 +9,25 @@
   font-weight: 700;
   // height: 100%;
   height: fit-content;
-  padding: 3em 1.5em;
+  padding: 2em;
   background-color: $dark;
   color: white;
 }
 
-.app-header {
+.popup-header {
   display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
   align-items: center;
-  margin-bottom: 1em;
+  margin-bottom: 1em; 
 
   h1 {
     margin: 0;
+    font-size: 1.5em;
+  }
+
+  .logo {
+    width: 4em;
+    margin-bottom: 1em;
   }
 }
 

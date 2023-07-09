@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo from "@assets/img/logo.png";
+import kofi from "@assets/img/ko-fi-me.png"
 import "@pages/popup/Popup.scss";
 import "@pages/.components/options-toggle/OptionsToggle"
 import OptionsToggle from "@pages/.components/options-toggle/OptionsToggle";
@@ -45,22 +46,28 @@ export default function Popup() {
 
   return (
     <div className="App">
-      <header className="app-header">
-        <img src={logo} alt="logo" className="center" width='48' height="48" />
-        <h1>
-          Options
-        </h1>
-      </header>
+      <main>
+        <header className="popup-header">
+          <img src={logo} alt="logo" className="center logo" />
+          <h1>
+            Options
+          </h1>
+        </header>
 
-      <label htmlFor="buy-percent">Percentage chance to buy:</label>
-      <div className="buy-percent-input-container">
-        <input type='percent' name="buy-percent" id="buy-percent-input" className="buy-percent-input" min='0' max='100' value={buyPercent} onChange={handleBuyPercentInput} />
-        <span>%</span>
-        <input type="range" className="options-range" min='0' max='100' value={buyPercent} onChange={handleBuyPercentRange} />
-      </div>
+        <label htmlFor="buy-percent">Percentage chance to buy:</label>
+        <div className="buy-percent-input-container">
+          <input type='percent' name="buy-percent" id="buy-percent-input" className="buy-percent-input" min='0' max='100' value={buyPercent} onChange={handleBuyPercentInput} />
+          <span>%</span>
+          <input type="range" className="options-range" min='0' max='100' value={buyPercent} onChange={handleBuyPercentRange} />
+        </div>
 
-      <OptionsToggle name="close-on-cart-add" text="Close tab if item added to cart?" checked={closeOnCartAdd} onChange={handleCloseOnCartAdd} />
-      <OptionsToggle name="use-animation" text="Use animations?" checked={useAnimations} onChange={handleUseAnimations} />
+        <OptionsToggle name="close-on-cart-add" text="Close tab if item added to cart?" checked={closeOnCartAdd} onChange={handleCloseOnCartAdd} />
+        <OptionsToggle name="use-animation" text="Use animations?" checked={useAnimations} onChange={handleUseAnimations} />
+      </main>
+
+      <footer>
+        <a href="https://ko-fi.com/itsdaijoebu" target="_blank"><img src={kofi} alt="Buy me a Ko-fi" /></a>
+      </footer>
     </div>
   );
 };

@@ -15,3 +15,13 @@ $focus-ring: 0px 0px 0px 2px $chaos-primary;
   background: $chaos-primary;
   color: white; 
 }
+
+footer {
+  margin-top: 2em;
+  display: flex;
+  justify-content: center;
+
+  img {
+    width: 20em;
+  }
+}
