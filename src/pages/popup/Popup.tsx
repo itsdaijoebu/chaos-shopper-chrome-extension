@@ -46,14 +46,15 @@ export default function Popup() {
 
   return (
     <div className="App">
-      <main>
-        <header className="popup-header">
-          <img src={logo} alt="logo" className="center logo" />
-          <h1>
-            Options
-          </h1>
-        </header>
 
+      <header className="popup-header">
+        <img src={logo} alt="logo" className="center logo" />
+        <h1>
+          Options
+        </h1>
+      </header>
+
+      <main>
         <label htmlFor="buy-percent">Percentage chance to buy:</label>
         <div className="buy-percent-input-container">
           <input type='percent' name="buy-percent" id="buy-percent-input" className="buy-percent-input" min='0' max='100' value={buyPercent} onChange={handleBuyPercentInput} />

@@ -7,18 +7,30 @@
   left: 0px;
   right: 0px;
   font-weight: 700;
-  // height: 100%;
   height: fit-content;
-  padding: 2em;
   background-color: $dark;
   color: white;
+  
+  @mixin set-padding-tb($pad-tb) {
+    $pad-lr: 2.5em;
+    padding: $pad-tb $pad-lr;
+  }
+
+  main {
+    $pad-tb: 1em;
+    @include set-padding-tb($pad-tb)
+  }
+  .popup-header,
+  footer {
+    $pad-tb: 1em;
+    @include set-padding-tb($pad-tb)
+  }
 }
 
 .popup-header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 1em; 
+  gap: 0.5em;
+  background-color: $chaos-primary;
 
   h1 {
     margin: 0;
@@ -26,8 +38,7 @@
   }
 
   .logo {
-    width: 4em;
-    margin-bottom: 1em;
+    height: 2em;
   }
 }
 
