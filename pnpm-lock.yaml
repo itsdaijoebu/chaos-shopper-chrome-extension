@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -23,8 +23,8 @@ devDependencies:
     specifier: 13.4.0
     version: 13.4.0(react-dom@18.2.0)(react@18.2.0)
   '@types/chrome':
-    specifier: 0.0.224
-    version: 0.0.224
+    specifier: 0.0.240
+    version: 0.0.240
   '@types/jest':
     specifier: 29.0.3
     version: 29.0.3
@@ -982,8 +982,8 @@ packages:
       '@babel/types': 7.22.5
     dev: true
 
-  /@types/chrome@0.0.224:
-    resolution: {integrity: sha512-YkL7q3KDV7OAKgVCBNIfH73rnjNMbIzAYHzTa2DKhSK/2z0Wf/n8yJnK/UoW+lvuYJJR4LtAkG3YvsIZTy7BOA==}
+  /@types/chrome@0.0.240:
+    resolution: {integrity: sha512-aiA2V8+WeJeOqtghX9KLqPT2GfaR2ksmgEZm84TsHAxTwl+tkEKax5oLO2hLptNRc5xQ2tbIRiUc5olIe0TnoQ==}
     dependencies:
       '@types/filesystem': 0.0.32
       '@types/har-format': 1.2.11
