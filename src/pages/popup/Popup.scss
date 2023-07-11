@@ -12,7 +12,7 @@
   color: white;
   
   @mixin set-padding-tb($pad-tb) {
-    $pad-lr: 2.5em;
+    $pad-lr: 2em;
     padding: $pad-tb $pad-lr;
   }
 
@@ -43,7 +43,6 @@
 }
 
 input {
-
   &:focus-visible {
     outline: solid 2px $chaos-hover;
   }
