@@ -19,6 +19,13 @@ export default function Popup() {
   }, [])
 
   useEffect(() => {
+    const optionsRange = document.getElementById('options-range');
+    optionsRange.addEventListener('dblclick', () => {
+      setBuyPercent(50);
+    })
+  }, [])
+
+  useEffect(() => {
     chrome.storage.sync.set({ closeOnCartAdd: closeOnCartAdd })
   }, [closeOnCartAdd])
   useEffect(() => {
@@ -26,7 +33,7 @@ export default function Popup() {
   }, [useAnimations])
   useEffect(() => {
     chrome.storage.sync.set({ buyPercent: buyPercent })
-  })
+  }, [])
 
   function handleCloseOnCartAdd(e: React.ChangeEvent<HTMLInputElement>) {
     setCloseOnCartAdd(e.target.checked)
@@ -59,7 +66,7 @@ export default function Popup() {
         <div className="buy-percent-input-container">
           <input type='percent' name="buy-percent" id="buy-percent-input" className="buy-percent-input" min='0' max='100' value={buyPercent} onChange={handleBuyPercentInput} />
           <span>%</span>
-          <input type="range" className="options-range" min='0' max='100' value={buyPercent} onChange={handleBuyPercentRange} />
+          <input type="range" className="options-range" id="options-range" min='0' max='100' value={buyPercent} onChange={handleBuyPercentRange} />
         </div>
 
         <OptionsToggle name="close-on-cart-add" text="Close tab if item added to cart?" checked={closeOnCartAdd} onChange={handleCloseOnCartAdd} />
