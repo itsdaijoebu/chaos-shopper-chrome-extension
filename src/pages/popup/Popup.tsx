@@ -33,7 +33,7 @@ export default function Popup() {
   }, [useAnimations])
   useEffect(() => {
     chrome.storage.sync.set({ buyPercent: buyPercent })
-  }, [])
+  }, [buyPercent])
 
   function handleCloseOnCartAdd(e: React.ChangeEvent<HTMLInputElement>) {
     setCloseOnCartAdd(e.target.checked)
