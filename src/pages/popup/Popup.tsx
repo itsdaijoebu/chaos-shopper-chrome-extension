@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import logo from "@assets/img/logo.png";
 import kofi from "@assets/img/ko-fi-me.png"
 import "@pages/popup/Popup.scss";
-import "@pages/.components/options-toggle/OptionsToggle"
+// import "@pages/.components/options-toggle/OptionsToggle"
 import OptionsToggle from "@pages/.components/options-toggle/OptionsToggle";
 
 export default function Popup() {
@@ -10,6 +10,7 @@ export default function Popup() {
   const [useAnimations, setUseAnimations] = useState(true)
   const [buyPercent, setBuyPercent] = useState(75)
 
+  //set options based on stored values
   useEffect(() => {
     chrome.storage.sync.get(['closeOnCartAdd', 'useAnimations', 'buyPercent'], (result) => {
       if (result.closeOnCartAdd !== undefined) setCloseOnCartAdd(result.closeOnCartAdd)
@@ -18,6 +19,7 @@ export default function Popup() {
     })
   }, [])
 
+  // reset buypercent to default on dblclick
   useEffect(() => {
     const optionsRange = document.getElementById('options-range');
     optionsRange.addEventListener('dblclick', () => {
@@ -26,13 +28,25 @@ export default function Popup() {
   }, [])
 
   useEffect(() => {
-    chrome.storage.sync.set({ closeOnCartAdd: closeOnCartAdd })
+    try {
+      chrome.storage.sync.set({ closeOnCartAdd: closeOnCartAdd })
+    } catch (e) {
+      localStorage.setItem("closeOnCartAdd", String(closeOnCartAdd))
+    }
   }, [closeOnCartAdd])
   useEffect(() => {
-    chrome.storage.sync.set({ useAnimations: useAnimations })
+    try {
+      chrome.storage.sync.set({ useAnimations: useAnimations })
+    } catch (e) {
+      localStorage.setItem("closeOnCartAdd", String(useAnimations))
+    }
   }, [useAnimations])
   useEffect(() => {
-    chrome.storage.sync.set({ buyPercent: buyPercent })
+    try {
+      chrome.storage.sync.set({ buyPercent: buyPercent })
+    } catch (e) {
+      localStorage.setItem("buyPercent", String(buyPercent))
+    }
   }, [buyPercent])
 
   function handleCloseOnCartAdd(e: React.ChangeEvent<HTMLInputElement>) {
@@ -50,6 +64,8 @@ export default function Popup() {
   function handleBuyPercentRange(e: React.ChangeEvent<HTMLInputElement>) {
     setBuyPercent(Number(e.target.value));
   }
+
+
 
   return (
     <div className="App">

@@ -16,15 +16,14 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
   let closeOnCartAdd = false;
   let useAnimations = false;
   let buyPercent = 0.75;
-
+  
   // keep track of extension option changes and set them on mount
   useEffect(() => {
     const optionsListener = () => {
       chrome.storage.sync.get(['closeOnCartAdd', 'useAnimations', 'buyPercent'], result => {
-        // setCloseOnCartAdd(result.closeOnCartAdd)
-        closeOnCartAdd = result.closeOnCartAdd;
-        useAnimations = result.useAnimations;
-        buyPercent = result.buyPercent;
+        if(result.closeOnCartAdd) closeOnCartAdd = result.closeOnCartAdd;
+        if(result.useAnimations) useAnimations = result.useAnimations;
+        if(result.buyPercent) buyPercent = result.buyPercent;
       })
     }
 

@@ -1,54 +1,55 @@
-@import '@assets/style/theme.scss';
+/* .OptionsContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 
-.App {
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
+.option {
+  display: flex;
+  gap: 3rem;
+}
+ */
+
+ @import '@assets/style/theme.scss';
+
+body {
   font-weight: 700;
-  height: fit-content;
   background-color: $dark;
   color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
-  @mixin set-padding-tb($pad-tb) {
-    $pad-lr: 2em;
-    padding: $pad-tb $pad-lr;
-  }
+footer {
+  display: flex;
+  justify-content: center;
 
-  main {
-    $pad-tb: 1em;
-    @include set-padding-tb($pad-tb)
-  }
-
-  .popup-header,
-  footer {
-    $pad-tb: 1em;
-    @include set-padding-tb($pad-tb)
-  }
-
-  footer {
-    display: flex;
-    justify-content: center;
-
-    img {
-      width: 12em;
-    }
+  img {
+    width: 20em;
   }
 }
 
-.popup-header {
+.options-container {
+  width: 50vw;
+  margin: 0 auto;
+}
+
+.options-header {
   display: flex;
   gap: 0.5em;
   background-color: $chaos-primary;
+  padding: 1em;
 
   h1 {
     margin: 0;
-    font-size: 1.5em;
+    font-size: 3em;
   }
 
   .logo {
-    height: 2em;
+    height: 5em;
   }
 }
 
@@ -87,7 +88,7 @@ input {
 }
 
 .options-range {
-  width: 65vw;
+  width: 40vw;
   height: 0.5em;
   accent-color: $chaos-primary;
 }
