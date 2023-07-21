@@ -28,25 +28,13 @@ export default function Popup() {
   }, [])
 
   useEffect(() => {
-    try {
-      chrome.storage.sync.set({ closeOnCartAdd: closeOnCartAdd })
-    } catch (e) {
-      localStorage.setItem("closeOnCartAdd", String(closeOnCartAdd))
-    }
+    chrome.storage.sync.set({ closeOnCartAdd: closeOnCartAdd })
   }, [closeOnCartAdd])
   useEffect(() => {
-    try {
-      chrome.storage.sync.set({ useAnimations: useAnimations })
-    } catch (e) {
-      localStorage.setItem("closeOnCartAdd", String(useAnimations))
-    }
+    chrome.storage.sync.set({ useAnimations: useAnimations })
   }, [useAnimations])
   useEffect(() => {
-    try {
-      chrome.storage.sync.set({ buyPercent: buyPercent })
-    } catch (e) {
-      localStorage.setItem("buyPercent", String(buyPercent))
-    }
+      localStorage.setItem("buyPercent", `${buyPercent}`)
   }, [buyPercent])
 
   function handleCloseOnCartAdd(e: React.ChangeEvent<HTMLInputElement>) {
