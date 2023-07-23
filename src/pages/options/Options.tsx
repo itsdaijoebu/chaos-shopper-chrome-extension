@@ -13,21 +13,27 @@ const Options: React.FC = () => {
   const [buyPercent, setBuyPercent] = useState(75)
 
   useEffect(() => {
-    const optionsListener = () => {
-      chrome.storage.sync.get(['closeOnCartAdd', 'useAnimations', 'buyPercent'], (result) => {
+    const chromeOptionsListener = () => {
+      chrome.storage.sync.get(['closeOnCartAdd', 'useAnimations'], (result) => {
         if (result.closeOnCartAdd !== undefined) setCloseOnCartAdd(result.closeOnCartAdd)
         if (result.useAnimations !== undefined) setUseAnimations(result.useAnimations)
-        if (result.buyPercent !== undefined) setBuyPercent(result.buyPercent)
       })
     }
+    const storageOptionsListener = () => {
+      const storedBuyPercent = localStorage.getItem('buyPercent');
+      if(buyPercent) setBuyPercent(Number(storedBuyPercent))
+    }
 
-    optionsListener();
+    chromeOptionsListener();
+    storageOptionsListener();
 
     // listen for changes in extension options
-    chrome.storage.onChanged.addListener(optionsListener)
+    chrome.storage.onChanged.addListener(chromeOptionsListener)
+    const storageListener = window.addEventListener('storage', storageOptionsListener)
 
     return () => {
-      chrome.storage.onChanged.removeListener(optionsListener)
+      chrome.storage.onChanged.removeListener(chromeOptionsListener)
+      window.removeEventListener('storage', storageOptionsListener)
     }
   }, [])
 
@@ -45,7 +51,7 @@ const Options: React.FC = () => {
     chrome.storage.sync.set({ useAnimations: useAnimations })
   }, [useAnimations])
   useEffect(() => {
-    chrome.storage.sync.set({ buyPercent: buyPercent })
+    localStorage.setItem('buyPercent', String(buyPercent))
   }, [buyPercent])
 
   function handleCloseOnCartAdd(e: React.ChangeEvent<HTMLInputElement>) {

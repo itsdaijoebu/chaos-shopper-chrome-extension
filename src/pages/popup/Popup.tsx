@@ -12,11 +12,13 @@ export default function Popup() {
 
   //set options based on stored values
   useEffect(() => {
-    chrome.storage.sync.get(['closeOnCartAdd', 'useAnimations', 'buyPercent'], (result) => {
+    chrome.storage.sync.get(['closeOnCartAdd', 'useAnimations'], (result) => {
       if (result.closeOnCartAdd !== undefined) setCloseOnCartAdd(result.closeOnCartAdd)
       if (result.useAnimations !== undefined) setUseAnimations(result.useAnimations)
-      if (result.buyPercent !== undefined) setBuyPercent(result.buyPercent)
     })
+
+    let storedBuyPercent = localStorage.getItem('buyPercent')
+    if(storedBuyPercent) setBuyPercent(Number(storedBuyPercent))
   }, [])
 
   // reset buypercent to default on dblclick
