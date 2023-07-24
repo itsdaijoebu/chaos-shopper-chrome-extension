@@ -15,26 +15,29 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
   // const [closeOnCartAdd, setCloseOnCartAdd] = useState(false);
   let closeOnCartAdd = false;
   let useAnimations = false;
-  let buyPercent = 0.75;
-  
+  let buyPercent = 50;
+
   // keep track of extension option changes and set them on mount
   useEffect(() => {
-    const optionsListener = () => {
-      chrome.storage.sync.get(['closeOnCartAdd', 'useAnimations', 'buyPercent'], result => {
-        if(result.closeOnCartAdd) closeOnCartAdd = result.closeOnCartAdd;
-        if(result.useAnimations) useAnimations = result.useAnimations;
-        if(result.buyPercent) buyPercent = result.buyPercent;
+    const chromeOptionsListener = () => {
+      chrome.storage.sync.get(['closeOnCartAdd', 'useAnimations'], result => {
+        if (result.closeOnCartAdd) closeOnCartAdd = result.closeOnCartAdd;
+        if (result.useAnimations) useAnimations = result.useAnimations;
       })
+      chrome.storage.local.get(['buyPercent']), result => {
+        if (result.buyPercent) buyPercent = result.buyPercent
+        console.log('buy percent', buyPercent)
+      }
     }
 
     //set options on mount
-    optionsListener();
+    chromeOptionsListener();
 
     // listen for changes in extension options
-    chrome.storage.onChanged.addListener(optionsListener)
+    chrome.storage.onChanged.addListener(chromeOptionsListener)
 
     return () => {
-      chrome.storage.onChanged.removeListener(optionsListener)
+      chrome.storage.onChanged.removeListener(chromeOptionsListener)
     }
   }, []);
 
@@ -56,7 +59,7 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
 
   // Either adds item to cart or closes window based on random chance
   function chaosShopper(addToCartButton: HTMLElement) {
-    let rng = Math.random()*100
+    let rng = Math.random() * 100
     console.log('rng', rng);
     if (rng > buyPercent || !addToCartButton) { //sometimes addtocartbutton fails to be found. Just chalk it up to the universe not wanting you to buy this thing
       console.log('close', addToCartButton)
@@ -140,7 +143,7 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
         btTl.restart();
     });
     bt.addEventListener('click', () => {
-      if(useAnimations)
+      if (useAnimations)
         btTl.restart();
     })
   }

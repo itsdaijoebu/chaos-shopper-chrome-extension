@@ -10,30 +10,26 @@ import "@pages/options/Options.scss";
 const Options: React.FC = () => {
   const [closeOnCartAdd, setCloseOnCartAdd] = useState(false)
   const [useAnimations, setUseAnimations] = useState(true)
-  const [buyPercent, setBuyPercent] = useState(75)
+  const [buyPercent, setBuyPercent] = useState()
+  
 
   useEffect(() => {
     const chromeOptionsListener = () => {
-      chrome.storage.sync.get(['closeOnCartAdd', 'useAnimations'], (result) => {
+      chrome.storage.local.get(['closeOnCartAdd', 'useAnimations', 'buyPercent'], result => {
         if (result.closeOnCartAdd !== undefined) setCloseOnCartAdd(result.closeOnCartAdd)
         if (result.useAnimations !== undefined) setUseAnimations(result.useAnimations)
+        if (result.buyPercent !== undefined) setBuyPercent(result.buyPercent)
+        console.log('initial bp', buyPercent, result.buyPercent)
       })
-    }
-    const storageOptionsListener = () => {
-      const storedBuyPercent = localStorage.getItem('buyPercent');
-      if(buyPercent) setBuyPercent(Number(storedBuyPercent))
     }
 
     chromeOptionsListener();
-    storageOptionsListener();
 
     // listen for changes in extension options
     chrome.storage.onChanged.addListener(chromeOptionsListener)
-    const storageListener = window.addEventListener('storage', storageOptionsListener)
 
     return () => {
       chrome.storage.onChanged.removeListener(chromeOptionsListener)
-      window.removeEventListener('storage', storageOptionsListener)
     }
   }, [])
 
@@ -45,13 +41,13 @@ const Options: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    chrome.storage.sync.set({ closeOnCartAdd: closeOnCartAdd })
+      chrome.storage.local.set({ closeOnCartAdd: closeOnCartAdd })
   }, [closeOnCartAdd])
   useEffect(() => {
-    chrome.storage.sync.set({ useAnimations: useAnimations })
+      chrome.storage.local.set({ useAnimations: useAnimations })
   }, [useAnimations])
   useEffect(() => {
-    localStorage.setItem('buyPercent', String(buyPercent))
+      chrome.storage.local.set({ buyPercent: buyPercent })
   }, [buyPercent])
 
   function handleCloseOnCartAdd(e: React.ChangeEvent<HTMLInputElement>) {
@@ -68,6 +64,7 @@ const Options: React.FC = () => {
   }
   function handleBuyPercentRange(e: React.ChangeEvent<HTMLInputElement>) {
     setBuyPercent(Number(e.target.value));
+    console.log('handlebuypercentrange', buyPercent)
   }
 
   return <div className="options-container">

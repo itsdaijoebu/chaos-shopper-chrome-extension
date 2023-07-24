@@ -8,17 +8,15 @@ import OptionsToggle from "@pages/.components/options-toggle/OptionsToggle";
 export default function Popup() {
   const [closeOnCartAdd, setCloseOnCartAdd] = useState(false)
   const [useAnimations, setUseAnimations] = useState(true)
-  const [buyPercent, setBuyPercent] = useState(75)
+  const [buyPercent, setBuyPercent] = useState()
 
   //set options based on stored values
   useEffect(() => {
-    chrome.storage.sync.get(['closeOnCartAdd', 'useAnimations'], (result) => {
+    chrome.storage.local.get(['closeOnCartAdd', 'useAnimations', 'buyPercent'], result => {
       if (result.closeOnCartAdd !== undefined) setCloseOnCartAdd(result.closeOnCartAdd)
       if (result.useAnimations !== undefined) setUseAnimations(result.useAnimations)
+      if (result.buyPercent !== undefined) setBuyPercent(result.buyPercent)
     })
-
-    let storedBuyPercent = localStorage.getItem('buyPercent')
-    if(storedBuyPercent) setBuyPercent(Number(storedBuyPercent))
   }, [])
 
   // reset buypercent to default on dblclick
@@ -30,13 +28,13 @@ export default function Popup() {
   }, [])
 
   useEffect(() => {
-    chrome.storage.sync.set({ closeOnCartAdd: closeOnCartAdd })
+    chrome.storage.local.set({ closeOnCartAdd: closeOnCartAdd })
   }, [closeOnCartAdd])
   useEffect(() => {
-    chrome.storage.sync.set({ useAnimations: useAnimations })
+    chrome.storage.local.set({ useAnimations: useAnimations })
   }, [useAnimations])
   useEffect(() => {
-      localStorage.setItem("buyPercent", `${buyPercent}`)
+    chrome.storage.local.set({ buyPercent: buyPercent })
   }, [buyPercent])
 
   function handleCloseOnCartAdd(e: React.ChangeEvent<HTMLInputElement>) {
