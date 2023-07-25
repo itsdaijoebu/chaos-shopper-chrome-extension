@@ -25,7 +25,6 @@ chrome.runtime.onInstalled.addListener(() => {
     });
   });
   
-
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.msg === "close-tab") {
         chrome.tabs.query({
@@ -44,7 +43,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         })
     }
 });
-
 function closeTabOnNavigation(tabId) {
     chrome.tabs.onUpdated.addListener(function listener(updatedTabId, changeInfo) {
         if (updatedTabId === tabId && (changeInfo.status === "loading" || changeInfo.status === "complete")) {

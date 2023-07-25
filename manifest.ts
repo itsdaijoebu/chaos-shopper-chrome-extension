@@ -17,26 +17,17 @@ const manifest: chrome.runtime.ManifestV3 = {
     default_popup: "src/pages/popup/index.html",
     default_icon: "icon-38.png",
   },
-  // chrome_url_overrides: {
-  //   newtab: "src/pages/newtab/index.html",
-  // },
   permissions: [
     "storage",
-  //   "tabs",
-  //   "activeTab"
   ],
-  // host_permissions: [
-  //   "http://*/*",
-  //   "https://*/*"
-  // ],
   icons: {
     "128": "icon-128.png",
   },
   content_scripts: [
     {
       // matches: ["http://*/*", "https://* /*", "<all_urls>"],
-      "matches": [ "*://*/*" ],
-      "include_globs": [  
+      matches: [ "*://*/*" ],
+      include_globs: [  
         "*://*.amazon.*/*",
         "*://*.wish.*/*",
         "*://*.shein.*/*",
