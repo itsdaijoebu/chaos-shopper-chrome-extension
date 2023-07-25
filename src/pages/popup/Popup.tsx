@@ -6,9 +6,10 @@ import "@pages/popup/Popup.scss";
 import OptionsToggle from "@pages/.components/options-toggle/OptionsToggle";
 
 export default function Popup() {
-  const [closeOnCartAdd, setCloseOnCartAdd] = useState(false)
-  const [useAnimations, setUseAnimations] = useState(true)
-  const [buyPercent, setBuyPercent] = useState()
+  const [closeOnCartAdd, setCloseOnCartAdd] = useState<boolean>()
+  const [useAnimations, setUseAnimations] = useState<boolean>()
+  const [buyPercent, setBuyPercent] = useState<number>()
+  const changeSourceName = 'popup'
 
   //set options based on stored values
   useEffect(() => {
@@ -16,6 +17,7 @@ export default function Popup() {
       if (result.closeOnCartAdd !== undefined) setCloseOnCartAdd(result.closeOnCartAdd)
       if (result.useAnimations !== undefined) setUseAnimations(result.useAnimations)
       if (result.buyPercent !== undefined) setBuyPercent(result.buyPercent)
+      console.log('buy percent:', buyPercent, result.buyPercent )
     })
   }, [])
 
@@ -28,13 +30,13 @@ export default function Popup() {
   }, [])
 
   useEffect(() => {
-    chrome.storage.local.set({ closeOnCartAdd: closeOnCartAdd })
+    chrome.storage.local.set({ closeOnCartAdd: closeOnCartAdd, changeSource: changeSourceName })
   }, [closeOnCartAdd])
   useEffect(() => {
-    chrome.storage.local.set({ useAnimations: useAnimations })
+    chrome.storage.local.set({ useAnimations: useAnimations, changeSource: changeSourceName })
   }, [useAnimations])
   useEffect(() => {
-    chrome.storage.local.set({ buyPercent: buyPercent })
+    chrome.storage.local.set({ buyPercent: buyPercent, changeSource: changeSourceName })
   }, [buyPercent])
 
   function handleCloseOnCartAdd(e: React.ChangeEvent<HTMLInputElement>) {

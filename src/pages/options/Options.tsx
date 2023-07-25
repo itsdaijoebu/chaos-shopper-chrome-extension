@@ -5,27 +5,36 @@ import OptionsToggle from "@pages/.components/options-toggle/OptionsToggle";
 
 import "@pages/options/Options.scss";
 
+export default function Options() {
+  const [closeOnCartAdd, setCloseOnCartAdd] = useState<boolean>()
+  const [useAnimations, setUseAnimations] = useState<boolean>()
+  const [buyPercent, setBuyPercent] = useState<number>()
+  const changeSourceName = 'options-page'
 
-
-const Options: React.FC = () => {
-  const [closeOnCartAdd, setCloseOnCartAdd] = useState(false)
-  const [useAnimations, setUseAnimations] = useState(true)
-  const [buyPercent, setBuyPercent] = useState()
-  
+  // useEffect(() => {
+  //   chrome.storage.local.get(['closeOnCartAdd', 'useAnimations', 'buyPercent'], result => {
+  //     console.log('initial setup')
+  //     if (result.closeOnCartAdd !== undefined) setCloseOnCartAdd(result.closeOnCartAdd)
+  //     if (result.useAnimations !== undefined) setUseAnimations(result.useAnimations)
+  //     if (result.buyPercent !== undefined) setBuyPercent(result.buyPercent)
+  //   })
+  // }, [])
 
   useEffect(() => {
     const chromeOptionsListener = () => {
-      chrome.storage.local.get(['closeOnCartAdd', 'useAnimations', 'buyPercent'], result => {
+      chrome.storage.local.get(['changeSource', 'closeOnCartAdd', 'useAnimations', 'buyPercent'], result => {
+        if (result.changeSource === changeSourceName) return
+        console.log('setting things up')
         if (result.closeOnCartAdd !== undefined) setCloseOnCartAdd(result.closeOnCartAdd)
         if (result.useAnimations !== undefined) setUseAnimations(result.useAnimations)
         if (result.buyPercent !== undefined) setBuyPercent(result.buyPercent)
-        console.log('initial bp', buyPercent, result.buyPercent)
       })
     }
 
+    chrome.storage.local.set({'changeSource': 'default'})
     chromeOptionsListener();
 
-    // listen for changes in extension options
+    // // listen for changes in extension options
     chrome.storage.onChanged.addListener(chromeOptionsListener)
 
     return () => {
@@ -41,13 +50,13 @@ const Options: React.FC = () => {
   }, [])
 
   useEffect(() => {
-      chrome.storage.local.set({ closeOnCartAdd: closeOnCartAdd })
+    chrome.storage.local.set({ closeOnCartAdd: closeOnCartAdd, changeSource: changeSourceName })
   }, [closeOnCartAdd])
   useEffect(() => {
-      chrome.storage.local.set({ useAnimations: useAnimations })
+    chrome.storage.local.set({ useAnimations: useAnimations, changeSource: changeSourceName })
   }, [useAnimations])
   useEffect(() => {
-      chrome.storage.local.set({ buyPercent: buyPercent })
+    chrome.storage.local.set({ buyPercent: buyPercent, changeSource: changeSourceName })
   }, [buyPercent])
 
   function handleCloseOnCartAdd(e: React.ChangeEvent<HTMLInputElement>) {
@@ -91,5 +100,3 @@ const Options: React.FC = () => {
     </footer>
   </div>;
 };
-
-export default Options;
