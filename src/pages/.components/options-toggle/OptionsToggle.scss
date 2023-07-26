@@ -1,8 +1,9 @@
 @import '@assets/style/theme.scss';
 
-$toggle-indicator-size: 1.5em; // changing this number will resize the whole toggle
-$track-height: $toggle-indicator-size * 1.2;
-$track-width: $toggle-indicator-size * 2.5;
+$toggle-indicator-size: $ui-el-scale; // changing this number will resize the whole toggle
+$track-height: $ui-el-height;
+$track-width: $ui-el-width;
+
 $highContrastModeSupport: solid 2px transparent;
 $speed: 0.25s;
 

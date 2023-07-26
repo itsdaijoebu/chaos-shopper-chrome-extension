@@ -12,10 +12,11 @@
 }
  */
 
- @import '@assets/style/theme.scss';
+@import '@assets/style/theme.scss';
 
 body {
   font-weight: 700;
+  font-size: 1.2rem;
   background-color: $dark;
   color: white;
   display: flex;
@@ -23,76 +24,98 @@ body {
   justify-content: center;
 }
 
-footer {
-  display: flex;
-  justify-content: center;
 
-  img {
-    width: 20em;
-  }
-}
 
 .options-container {
   width: 50vw;
   margin: 0 auto;
+
+  .options-header {
+    display: flex;
+    gap: 0.5em;
+    width: 100%;
+    background-color: $chaos-primary;
+    padding: 2em;
+
+    h1 {
+      margin: 0;
+      font-size: 3rem;
+    }
+
+    .logo {
+      height: 4em;
+    }
+  }
+
+  .options {
+    margin: 2em 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+
+    .options-range {
+      width: 30vw;
+      min-width: 20em;
+      height: 1em;
+      accent-color: $chaos-primary;
+    }
+
+    .buy-percent-input-container {
+      margin-top: 0.5em;
+
+      .buy-percent-input {
+        font-size: inherit;
+        width: $ui-el-width - 0.5em;
+        background: $dark-accent;
+        color: $white;
+        text-align: end;
+        margin-bottom: 1em;
+        // border-radius: 3px;
+
+        border-radius: 3px;
+        border-right: solid 1px $chaos-hover;
+        border-bottom: solid 1px $chaos-hover;
+        box-shadow: inset 0 0 2px $chaos-hover;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        +span {
+          margin-right: 0.1em;
+        }
+      }
+    }
+  }
+
+  input {
+    &:focus-visible {
+      outline: solid 2px $chaos-hover;
+    }
+  }
 }
 
-.options-header {
+footer {
   display: flex;
-  gap: 0.5em;
-  background-color: $chaos-primary;
-  padding: 1em;
+  justify-content: center;
+  margin-top: 5em;
 
-  h1 {
-    margin: 0;
-    font-size: 3em;
-  }
-
-  .logo {
-    height: 5em;
+  img {
+    width: 15em;
   }
 }
 
-input {
-  &:focus-visible {
-    outline: solid 2px $chaos-hover;
-  }
-}
 
-.buy-percent-input {
-  width: 1.75em;
-  background: $dark-accent;
-  color: $white;
-  text-align: end;
-  margin-bottom: 1em;
-  // border-radius: 3px;
-
-  border-radius: 3px;
-  // border: 1px solid transparent;
-  // border-top: none;
-  // border-bottom: 1px solid $chaos-primary;
-  // box-shadow: inset 0 1px 2px rgba(0,0,0,.39), 0 -1px 1px $chaos-primary, 0 1px 0 $chaos-primary;
-  border-right: solid 1px $chaos-hover;
-  border-bottom: solid 1px $chaos-hover;
-  box-shadow: inset 0 0 2px $chaos-hover;
-
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+@media (max-width: 986px) {
+  .options-container {
+    position: absolute;
+    inset: 0;
+    width: 100vw;
   }
 
-  +span {
-    margin-right: 0.1em;
+  footer {
+    justify-content: flex-start;
   }
-}
-
-.options-range {
-  width: 40vw;
-  height: 0.5em;
-  accent-color: $chaos-primary;
-}
-
-.buy-percent-input-container {
-  margin-top: 0.5em;
 }

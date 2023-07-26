@@ -4,6 +4,10 @@ $white: white;
 $dark: #282c34;
 $dark-accent: #312834;
 
+$ui-el-scale: 1.5em;
+$ui-el-height: $ui-el-scale * 1.2;
+$ui-el-width: $ui-el-scale * 2.5;
+
 $focus-ring: 0px 0px 0px 2px $chaos-primary;
 
 .crx-class {

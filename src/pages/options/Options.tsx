@@ -31,7 +31,7 @@ export default function Options() {
       })
     }
 
-    chrome.storage.local.set({'changeSource': 'default'})
+    chrome.storage.local.set({ 'changeSource': 'default' })
     chromeOptionsListener();
 
     // // listen for changes in extension options
@@ -83,20 +83,22 @@ export default function Options() {
     </header>
 
 
-    <div className="option">
-      <label htmlFor="buy-percent">Percentage chance to buy:</label>
-      <div className="buy-percent-input-container">
-        <input type='percent' name="buy-percent" id="buy-percent-input" className="buy-percent-input" min='0' max='100' value={buyPercent} onChange={handleBuyPercentInput} />
-        <span>%</span>
-        <input type="range" className="options-range" id="options-range" min='0' max='100' value={buyPercent} onChange={handleBuyPercentRange} />
+    <div className="options">
+      <div>
+        <label htmlFor="buy-percent">Percentage chance to buy:</label>
+        <div className="buy-percent-input-container">
+          <input type='percent' name="buy-percent" id="buy-percent-input" className="buy-percent-input" min='0' max='100' value={buyPercent} onChange={handleBuyPercentInput} />
+          <span>%</span>
+          <input type="range" className="options-range" id="options-range" min='0' max='100' value={buyPercent} onChange={handleBuyPercentRange} />
+        </div>
       </div>
 
       <OptionsToggle name="close-on-cart-add" text="Close tab if item added to cart?" checked={closeOnCartAdd} onChange={handleCloseOnCartAdd} />
       <OptionsToggle name="use-animation" text="Use animations?" checked={useAnimations} onChange={handleUseAnimations} />
-    </div>
 
-    <footer>
+      <footer>
       <a href="https://ko-fi.com/itsdaijoebu" target="_blank"><img src={kofi} alt="Buy me a Ko-fi" /></a>
     </footer>
+    </div>
   </div>;
 };
