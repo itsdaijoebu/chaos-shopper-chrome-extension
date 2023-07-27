@@ -1,7 +1,7 @@
 // todo: ensure that if "close on add to cart" is on, the page doesn't close if the item wasn't added due to a size/color/etc option wasn't selected
 
 import { features } from "process";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 // import "@pages/content/style.scss";
 import { gsap } from 'gsap';
 
@@ -12,18 +12,26 @@ type ChaosShopperButton = {
 }
 
 export default function App({ addToCartButton = undefined, addToCartSelector = undefined, domain }: ChaosShopperButton) {
-  // const [closeOnCartAdd, setCloseOnCartAdd] = useState(false);
-  let closeOnCartAdd = false;
-  let useAnimations = false;
-  let buyPercent = 50;
+  // const [closeOnCartAdd, setCloseOnCartAdd] = useState<boolean>();
+  // const [useAnimations, setUseAnimations] = useState<boolean>();
+  // const [buyPercent, setBuyPercent] = useState<number>();
+  const closeOnCartAdd = useRef<boolean>()
+  const useAnimations = useRef<boolean>()
+  const buyPercent = useRef<number>()
 
   // keep track of extension option changes and set them on mount
   useEffect(() => {
     const chromeOptionsListener = () => {
       chrome.storage.local.get(['closeOnCartAdd', 'useAnimations', 'buyPercent'], result => {
-        if (result.closeOnCartAdd) closeOnCartAdd = result.closeOnCartAdd;
-        if (result.useAnimations) useAnimations = result.useAnimations;
-        if (result.buyPercent) buyPercent = result.buyPercent
+        //  setCloseOnCartAdd(result.closeOnCartAdd);
+        //  setUseAnimations(result.useAnimations);
+        //  setBuyPercent(result.buyPercent);
+         closeOnCartAdd.current = result.closeOnCartAdd;
+         useAnimations.current = result.useAnimations;
+         buyPercent.current = result.buyPercent;
+        // if (result.closeOnCartAdd) setCloseOnCartAdd(result.closeOnCartAdd);
+        // if (result.useAnimations) setUseAnimations(result.useAnimations);
+        // if (result.buyPercent) setBuyPercent(result.buyPercent);
       })
     }
 
@@ -54,17 +62,21 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
     }
   }, [])
 
+  // useEffect(() => {
+  //   console.log('vars:', closeOnCartAdd, useAnimations, buyPercent)
+  // }, [closeOnCartAdd, useAnimations, buyPercent])
+
   // Either adds item to cart or closes window based on random chance
   function chaosShopper(addToCartButton: HTMLElement) {
     let rng = Math.random() * 100
     console.log('rng', rng);
-    if (rng > buyPercent || !addToCartButton) { //sometimes addtocartbutton fails to be found. Just chalk it up to the universe not wanting you to buy this thing
+    if (rng > buyPercent.current || !addToCartButton) { //sometimes addtocartbutton fails to be found. Just chalk it up to the universe not wanting you to buy this thing
       console.log('close', addToCartButton)
       setTimeout(() => sendMessageToBg('close-tab'), 1000);
     } else {
       console.log('add to cart')
       addToCartButton.click();
-      if (closeOnCartAdd) {
+      if (closeOnCartAdd.current) {
         switch (domain) {
           case 'amazon':
             sendMessageToBg('close-on-navigation');
@@ -136,11 +148,12 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
     btTl.to(turbVal, { val: 0.3 });
     btTl.to(turbVal, { val: 0.000001 });
     bt.addEventListener('mouseenter', () => {
-      if (useAnimations)
+      console.log('check for animations', useAnimations.current)
+      if (useAnimations.current)
         btTl.restart();
     });
     bt.addEventListener('click', () => {
-      if (useAnimations)
+      if (useAnimations.current)
         btTl.restart();
     })
   }

@@ -12,19 +12,19 @@ reloadOnUpdate("pages/content/style.scss");
 chrome.runtime.onInstalled.addListener(() => {
     // Check if the options already exist in local storage
     chrome.storage.local.get(['closeOnCartAdd', 'useAnimations', 'buyPercent'], result => {
-      // If the options do not exist, set default values
-      if (result.closeOnCartAdd === undefined) {
-        chrome.storage.local.set({ closeOnCartAdd: false });
-      }
-      if (result.useAnimations === undefined) {
-        chrome.storage.local.set({ useAnimations: true });
-      }
-      if (result.buyPercent === undefined) {
-        chrome.storage.local.set({ buyPercent: 50 });
-      }
+        // If the options do not exist, set default values
+        if (result.closeOnCartAdd === undefined) {
+            chrome.storage.local.set({ closeOnCartAdd: false });
+        }
+        if (result.useAnimations === undefined) {
+            chrome.storage.local.set({ useAnimations: true });
+        }
+        if (result.buyPercent === undefined) {
+            chrome.storage.local.set({ buyPercent: 50 });
+        }
     });
-  });
-  
+});
+
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.msg === "close-tab") {
         chrome.tabs.query({
@@ -34,7 +34,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             console.log(tabs)
             chrome.tabs.remove(tabs[0].id);
         });
-    } else if(request.msg === "close-on-navigation") {
+    } else if (request.msg === "close-on-navigation") {
         chrome.tabs.query({
             currentWindow: true,
             active: true
