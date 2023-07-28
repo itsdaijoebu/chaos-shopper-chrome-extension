@@ -10,6 +10,12 @@ $speed: 0.25s;
 $track-border: $chaos-hover;
 $track-background: $dark-accent;
 
+.preload {
+    .toggle-indicator {
+        transition: none;
+    }   
+}
+
 // Toggle specific styles
 .toggle {
     align-items: center;
@@ -66,7 +72,7 @@ $track-background: $dark-accent;
     width: $toggle-indicator-size;
 }
 
-.checkMark {
+.checkmark {
     fill: $chaos-primary;
     height: $toggle-indicator-size;
     width: $toggle-indicator-size;
@@ -80,7 +86,7 @@ $track-background: $dark-accent;
     .toggle-indicator {
         transform: translateX($track-width - $track-height);
 
-        .checkMark {
+        .checkmark {
             opacity: 1;
             transition: opacity $speed ease-in-out;
         }

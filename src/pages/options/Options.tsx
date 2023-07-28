@@ -6,35 +6,32 @@ import OptionsToggle from "@pages/.components/options-toggle/OptionsToggle";
 import "@pages/options/Options.scss";
 
 export default function Options() {
+  const [isLoaded, setIsLoaded] = useState<boolean>();
   const [closeOnCartAdd, setCloseOnCartAdd] = useState<boolean>()
   const [useAnimations, setUseAnimations] = useState<boolean>()
   const [buyPercent, setBuyPercent] = useState<number>()
   const changeSourceName = 'options-page'
 
-  // useEffect(() => {
-  //   chrome.storage.local.get(['closeOnCartAdd', 'useAnimations', 'buyPercent'], result => {
-  //     console.log('initial setup')
-  //     if (result.closeOnCartAdd !== undefined) setCloseOnCartAdd(result.closeOnCartAdd)
-  //     if (result.useAnimations !== undefined) setUseAnimations(result.useAnimations)
-  //     if (result.buyPercent !== undefined) setBuyPercent(result.buyPercent)
-  //   })
-  // }, [])
+  useEffect(() => {
+    chrome.storage.local.get(['closeOnCartAdd', 'useAnimations', 'buyPercent'], result => {
+      if (result.closeOnCartAdd !== undefined) setCloseOnCartAdd(result.closeOnCartAdd)
+      if (result.useAnimations !== undefined) setUseAnimations(result.useAnimations)
+      if (result.buyPercent !== undefined) setBuyPercent(result.buyPercent)
+    })
+    setIsLoaded(true);
+  }, [])
 
   useEffect(() => {
     const chromeOptionsListener = () => {
       chrome.storage.local.get(['changeSource', 'closeOnCartAdd', 'useAnimations', 'buyPercent'], result => {
         if (result.changeSource === changeSourceName) return
-        console.log('setting things up')
         if (result.closeOnCartAdd !== undefined) setCloseOnCartAdd(result.closeOnCartAdd)
         if (result.useAnimations !== undefined) setUseAnimations(result.useAnimations)
         if (result.buyPercent !== undefined) setBuyPercent(result.buyPercent)
       })
     }
 
-    chrome.storage.local.set({ 'changeSource': 'default' })
-    chromeOptionsListener();
-
-    // // listen for changes in extension options
+    // listen for changes in extension options
     chrome.storage.onChanged.addListener(chromeOptionsListener)
 
     return () => {
@@ -93,8 +90,8 @@ export default function Options() {
         </div>
       </div>
 
-      <OptionsToggle name="close-on-cart-add" text="Close tab if item added to cart?" checked={closeOnCartAdd} onChange={handleCloseOnCartAdd} />
-      <OptionsToggle name="use-animation" text="Use animations?" checked={useAnimations} onChange={handleUseAnimations} />
+      <OptionsToggle name="close-on-cart-add" text="Close tab if item added to cart?" checked={closeOnCartAdd} onChange={handleCloseOnCartAdd} isLoaded={isLoaded}/>
+      <OptionsToggle name="use-animation" text="Use animations?" checked={useAnimations} onChange={handleUseAnimations} isLoaded={isLoaded}/>
 
       <footer>
       <a href="https://ko-fi.com/itsdaijoebu" target="_blank"><img src={kofi} alt="Buy me a Ko-fi" /></a>

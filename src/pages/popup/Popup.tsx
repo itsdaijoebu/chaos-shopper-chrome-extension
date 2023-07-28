@@ -6,6 +6,7 @@ import "@pages/popup/Popup.scss";
 import OptionsToggle from "@pages/.components/options-toggle/OptionsToggle";
 
 export default function Popup() {
+  const [isLoaded, setIsLoaded] = useState<boolean>()
   const [closeOnCartAdd, setCloseOnCartAdd] = useState<boolean>()
   const [useAnimations, setUseAnimations] = useState<boolean>()
   const [buyPercent, setBuyPercent] = useState<number>()
@@ -17,8 +18,8 @@ export default function Popup() {
       if (result.closeOnCartAdd !== undefined) setCloseOnCartAdd(result.closeOnCartAdd)
       if (result.useAnimations !== undefined) setUseAnimations(result.useAnimations)
       if (result.buyPercent !== undefined) setBuyPercent(result.buyPercent)
-      console.log('buy percent:', buyPercent, result.buyPercent )
     })
+    setIsLoaded(true)
   }, [])
 
   // reset buypercent to default on dblclick
@@ -75,8 +76,8 @@ export default function Popup() {
           <input type="range" className="options-range" id="options-range" min='0' max='100' value={buyPercent} onChange={handleBuyPercentRange} />
         </div>
 
-        <OptionsToggle name="close-on-cart-add" text="Close tab if item added to cart?" checked={closeOnCartAdd} onChange={handleCloseOnCartAdd} />
-        <OptionsToggle name="use-animation" text="Use animations?" checked={useAnimations} onChange={handleUseAnimations} />
+        <OptionsToggle name="close-on-cart-add" text="Close tab if item added to cart?" checked={closeOnCartAdd} onChange={handleCloseOnCartAdd} isLoaded={isLoaded} />
+        <OptionsToggle name="use-animation" text="Use animations?" checked={useAnimations} onChange={handleUseAnimations} isLoaded={isLoaded} />
       </main>
 
       <footer>
