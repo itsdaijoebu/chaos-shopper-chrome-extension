@@ -17,7 +17,10 @@ chrome.runtime.onInstalled.addListener(() => {
             chrome.storage.local.set({ closeOnCartAdd: false });
         }
         if (result.useAnimations === undefined) {
-            chrome.storage.local.set({ useAnimations: true });
+            const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+            mediaQuery.matches ?
+                chrome.storage.local.set({ useAnimations: false }) :
+                chrome.storage.local.set({ useAnimations: true });
         }
         if (result.buyPercent === undefined) {
             chrome.storage.local.set({ buyPercent: 50 });

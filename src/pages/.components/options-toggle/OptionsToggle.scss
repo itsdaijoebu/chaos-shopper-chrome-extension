@@ -13,7 +13,7 @@ $track-background: $dark-accent;
 .preload {
     .toggle-indicator {
         transition: none;
-    }   
+    }
 }
 
 // Toggle specific styles
@@ -96,5 +96,11 @@ $track-background: $dark-accent;
 @media screen and (-ms-high-contrast: active) {
     .toggle-track {
         border-radius: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
     }
 }

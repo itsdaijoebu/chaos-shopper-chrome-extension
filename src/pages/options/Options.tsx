@@ -94,7 +94,7 @@ export default function Options() {
       <OptionsToggle name="use-animation" text="Use animations?" checked={useAnimations} onChange={handleUseAnimations} isLoaded={isLoaded}/>
 
       <footer>
-      <a href="https://ko-fi.com/itsdaijoebu" target="_blank"><img src={kofi} alt="Buy me a Ko-fi" /></a>
+      <a href="https://ko-fi.com/itsdaijoebu" target="_blank" rel="noopener"><img src={kofi} alt="Buy me a Ko-fi" /></a>
     </footer>
     </div>
   </div>;
