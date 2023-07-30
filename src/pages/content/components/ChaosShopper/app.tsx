@@ -2,7 +2,7 @@
 
 import { features } from "process";
 import { useEffect, useRef } from "react";
-// import "@pages/content/style.scss";
+import "@pages/content/style.scss";
 import { gsap } from 'gsap';
 
 type ChaosShopperButton = {
@@ -192,28 +192,28 @@ export default function App({ addToCartButton = undefined, addToCartSelector = u
     }
 
     function makeChaosButton() {
-      const chaosButton = document.createElement('div')
-      chaosButton.classList.add('a-button-stack')
+      const chaosButton = document.createElement('div');
+      chaosButton.classList.add('a-button-stack', 'chaos-button');
 
-      const buttonSpan = document.createElement('span')
-      buttonSpan.classList.add('a-button', 'a-spacing-small', 'a-button-icon', 'chaos-primary', 'filtered')
-      buttonSpan.id = "chaos-shopper"
-      chaosButton.appendChild(buttonSpan)
+      const buttonSpan = document.createElement('span');
+      buttonSpan.classList.add('a-button', 'a-spacing-small', 'a-button-icon', 'chaos-primary', 'filtered');
+      buttonSpan.id = "chaos-shopper";
+      chaosButton.appendChild(buttonSpan);
 
-      const buttonSpanInner = document.createElement('span')
-      buttonSpanInner.classList.add('a-button-inner')
+      const buttonSpanInner = document.createElement('span');
+      buttonSpanInner.classList.add('a-button-inner');
 
-      buttonSpan.appendChild(buttonSpanInner)
+      buttonSpan.appendChild(buttonSpanInner);
 
-      const chaosText = document.createElement('span')
-      chaosText.classList.add('a-button-text')
-      chaosText.innerText = 'Chaos Shopper!'
-      buttonSpanInner.appendChild(chaosText)
+      const chaosText = document.createElement('span');
+      chaosText.classList.add('a-button-text');
+      chaosText.innerText = 'Chaos Shopper!';
+      buttonSpanInner.appendChild(chaosText);
 
-      addToCartButton.before(chaosButton)
+      addToCartButton.before(chaosButton);
 
-      const addToCartSubmit = addToCartButton.querySelector('#add-to-cart-button') as HTMLElement
-      chaosButton.addEventListener('click', () => chaosShopper(addToCartSubmit))
+      const addToCartSubmit = addToCartButton.querySelector('#add-to-cart-button') as HTMLElement;
+      chaosButton.addEventListener('click', () => chaosShopper(addToCartSubmit));
       addChaosAnimation(chaosButton);
     }
   }

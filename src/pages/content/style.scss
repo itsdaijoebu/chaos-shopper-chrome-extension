@@ -15,13 +15,30 @@
   background: $chaos-hover;
 }
 
-.chaos-primary > span > span{
+.chaos-primary>span>span {
   color: white !important;
 }
 
 .svg-filter {
-    position: absolute;
-    visibility: hidden;
-    width: 1px;
-    height: 1px;
+  position: absolute;
+  visibility: hidden;
+  width: 1px;
+  height: 1px;
+}
+
+//tooltip stuff
+.chaos-button {
+  position: relative;
+}
+
+.tooltip {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
 }
