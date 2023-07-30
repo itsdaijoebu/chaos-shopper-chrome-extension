@@ -23,6 +23,7 @@ $track-background: $dark-accent;
     display: flex;
     font-weight: 700;
     margin-bottom: 16px;
+    width: fit-content;
 
     &:last-of-type {
         margin: 0;
