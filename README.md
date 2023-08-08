@@ -7,11 +7,27 @@
 
 </div>
 
+**Available at: https://chrome.google.com/webstore/detail/chaos-shopper/fafmkmndmljahdddeomebgblmmkblbcn**
+
+## Table of Contents
+- [Intro](#intro)
+- [Description](#description)
+- [Images](#images)
+
+<a name="intro"></a>
+![Chaos Shopper explanation](https://github.com/itsdaijoebu/chaos-shopper-chrome-extension/assets/93284023/b48d2c95-d391-4fa0-8919-4d2eaad22e5f)
+
+## Description <a name="description"></a>
 Have you ever spent hours agonizing over purchasing decisions while shopping online? Maybe you couldn't decide if your butt would look good in those shorts. Maybe it was a GPU that *might* go on sale in a few months, but you kind of want it *now*. Or maybe you just weren't sure whether that dress was chic or sh**. 
 
 Well, now you can leave those decisions up to the **Chaos Shopper**! When you're on a product page, you can ask it to make your shopping decisions and it'll either add it to your shopping cart or close the page. 
 
-Currently only works with Amazon.
+Currently only works with Amazon and Shein.
+
+## Images <a name="images"></a>
+![Chaos Shopper options explanation](https://github.com/itsdaijoebu/chaos-shopper-chrome-extension/assets/93284023/d51acd31-d919-4e23-8135-faf7602a7e6c)
+![chaos-shopper-animate](https://github.com/itsdaijoebu/chaos-shopper-chrome-extension/assets/93284023/b65c3637-57d0-4142-8871-8efbda5bbaa0)
+![Chaos Shopper Shein](https://github.com/itsdaijoebu/chaos-shopper-chrome-extension/assets/93284023/1e2a7c1c-05c1-4d05-b4a7-75923c6423a9)
 
 <!-- ## Table of Contents
 
